@@ -4,10 +4,10 @@ import group17.InputHandler.CONNECTORS;
 
 public class App 
 {
-    private boolean[] evaluate_lics(final InputHandler input)
+    private boolean[] evaluateLics(final InputHandler input)
     {
         LicAnalyzer licAnalyzer = new LicAnalyzer();
-        final boolean[] lic_signals = {
+        final boolean[] licSignals = {
             licAnalyzer.lic0(input),
             licAnalyzer.lic1(input),
             licAnalyzer.lic2(input),
@@ -25,10 +25,10 @@ public class App
             licAnalyzer.lic14(input)
         };
 
-        return lic_signals;
+        return licSignals;
     }
 
-    private boolean[][] calculate_PUM(final boolean[] CMV, 
+    private boolean[][] calculatePUM(final boolean[] CMV, 
                                       final CONNECTORS[][] LCM) 
     {
         final int conditionals = CMV.length;
@@ -53,7 +53,7 @@ public class App
         return PUM;
     }
 
-    private boolean[] calculate_FUV(final boolean[][] PUM,
+    private boolean[] calculateFUV(final boolean[][] PUM,
                                     final boolean[] PUV)
     {
         final int signals = PUV.length;
@@ -78,9 +78,9 @@ public class App
     public void decide(final InputHandler input) {
         System.out.println( "Entered DECIDE" );
 
-        final boolean[]   CMV = evaluate_lics(input);
-        final boolean[][] PUM = calculate_PUM(CMV, input.LCM);
-        final boolean[]   FUV = calculate_FUV(PUM, input.PUV);
+        final boolean[]   CMV = evaluateLics(input);
+        final boolean[][] PUM = calculatePUM(CMV, input.LCM);
+        final boolean[]   FUV = calculateFUV(PUM, input.PUV);
 
         for (boolean signal : FUV) {
             if (signal == true) {
@@ -95,8 +95,8 @@ public class App
     public static void main( String[] args )
     {
         InputHandler input = new InputHandler("");
-        App missile_system = new App();
-        missile_system.decide(input);
+        App missileSystem = new App();
+        missileSystem.decide(input);
         System.out.println( "Hello World!" );
 
     }
