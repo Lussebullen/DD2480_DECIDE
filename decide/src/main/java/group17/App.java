@@ -7,7 +7,7 @@ public class App
     private boolean[] evaluateLics(final InputHandler input)
     {
         LicAnalyzer licAnalyzer = new LicAnalyzer();
-        final boolean[] licSignals = {
+        final boolean[] CMV = {
             licAnalyzer.lic0(input),
             licAnalyzer.lic1(input),
             licAnalyzer.lic2(input),
@@ -25,11 +25,11 @@ public class App
             licAnalyzer.lic14(input)
         };
 
-        return licSignals;
+        return CMV;
     }
 
     private boolean[][] calculatePUM(final boolean[] CMV, 
-                                      final CONNECTORS[][] LCM) 
+                                     final CONNECTORS[][] LCM) 
     {
         final int conditionals = CMV.length;
         boolean[][] PUM = new boolean[conditionals][conditionals];
@@ -54,7 +54,7 @@ public class App
     }
 
     private boolean[] calculateFUV(final boolean[][] PUM,
-                                    final boolean[] PUV)
+                                   final boolean[] PUV)
     {
         final int signals = PUV.length;
         boolean[] FUV = new boolean[signals];
@@ -98,6 +98,5 @@ public class App
         App missileSystem = new App();
         missileSystem.decide(input);
         System.out.println( "Hello World!" );
-
     }
 }
