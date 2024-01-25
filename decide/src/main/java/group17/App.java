@@ -1,5 +1,6 @@
 package group17;
 
+
 public class App 
 {
     private boolean[] evaluate_lics(InputHandler input)
@@ -26,16 +27,22 @@ public class App
         return lic_outcomes;
     }
 
+    private CONNECTOR[][] calculate_PUM(final boolean[] CMV, 
+                                        final CONNECTOR[][] LCM) 
+    {
+    }
+
     public void decide(InputHandler input) {
         System.out.println( "Entered DECIDE" );
 
         final boolean[] CMV = evaluate_lics(input);
+        final CONNECTOR[][] LCM = calculate_PUM(CMV, input.LCM);
+
     }
 
     public static void main( String[] args )
     {
         InputHandler input = new InputHandler("");
-        
         System.out.println( "Hello World!" );
 
     }
