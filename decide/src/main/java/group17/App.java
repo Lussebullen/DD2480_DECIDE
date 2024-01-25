@@ -53,11 +53,35 @@ public class App
         return PUM;
     }
 
+    private boolean[] calculate_FUV(final boolean[][] PUM,
+                                    final boolean[] PUV)
+    {
+        final int signals = PUV.length;
+        boolean[] FUV = new boolean[signals];
+        for (int i = 0; i < signals; ++i) {
+            if (PUV[i] == false) {
+                FUV[i] = true;
+                continue;
+            }
+            for (int j = 0; j < signals; ++j) {
+               if (PUM[i][j] == true || i == j) {
+                   continue;
+               } else if (PUM[i][j] == false) {
+                   return FUV;
+               }
+            }
+            FUV[i] = true;
+        }
+        return FUV;
+    }
+
     public void decide(InputHandler input) {
         System.out.println( "Entered DECIDE" );
 
-        final boolean[] CMV = evaluate_lics(input);
+        final boolean[]   CMV = evaluate_lics(input);
         final boolean[][] PUM = calculate_PUM(CMV, input.LCM);
+        final boolean[]   FUV = calculate_FUV(PUM, input.PUV);
+
     }
 
     public static void main( String[] args )
