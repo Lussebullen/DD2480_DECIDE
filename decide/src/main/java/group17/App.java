@@ -95,6 +95,8 @@ public class App
     public static void main( String[] args )
     {
         InputHandler input = new InputHandler("");
+        App missile_system = new App();
+        missile_system.decide(input);
         System.out.println( "Hello World!" );
 
     }
