@@ -2,25 +2,34 @@ package group17;
 
 public class App 
 {
+    private boolean[] evaluate_lics(InputHandler input)
+    {
+        LicAnalyzer licAnalyzer = new LicAnalyzer();
+        final boolean[] lic_outcomes = {
+            licAnalyzer.lic0(input),
+            licAnalyzer.lic1(input),
+            licAnalyzer.lic2(input),
+            licAnalyzer.lic3(input),
+            licAnalyzer.lic4(input),
+            licAnalyzer.lic5(input),
+            licAnalyzer.lic6(input),
+            licAnalyzer.lic7(input),
+            licAnalyzer.lic8(input),
+            licAnalyzer.lic9(input),
+            licAnalyzer.lic10(input),
+            licAnalyzer.lic11(input),
+            licAnalyzer.lic12(input),
+            licAnalyzer.lic13(input),
+            licAnalyzer.lic14(input)
+        };
+
+        return lic_outcomes;
+    }
+
     public void decide(InputHandler input) {
         System.out.println( "Entered DECIDE" );
-        LicAnalyzer licAnalyzer = new LicAnalyzer();
-        boolean[] CMV = new boolean[15];
-        CMV[0]  = licAnalyzer.lic0(input);
-        CMV[1]  = licAnalyzer.lic1(input);
-        CMV[2]  = licAnalyzer.lic2(input);
-        CMV[3]  = licAnalyzer.lic3(input);
-        CMV[4]  = licAnalyzer.lic4(input);
-        CMV[5]  = licAnalyzer.lic5(input);
-        CMV[6]  = licAnalyzer.lic6(input);
-        CMV[7]  = licAnalyzer.lic7(input);
-        CMV[8]  = licAnalyzer.lic8(input);
-        CMV[9]  = licAnalyzer.lic9(input);
-        CMV[10] = licAnalyzer.lic10(input);
-        CMV[11] = licAnalyzer.lic11(input);
-        CMV[12] = licAnalyzer.lic12(input);
-        CMV[13] = licAnalyzer.lic13(input);
-        CMV[14] = licAnalyzer.lic14(input);
+
+        final boolean[] CMV = evaluate_lics(input);
     }
 
     public static void main( String[] args )
