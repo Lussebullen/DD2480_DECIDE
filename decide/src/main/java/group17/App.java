@@ -4,10 +4,10 @@ import group17.InputHandler.CONNECTORS;
 
 public class App 
 {
-    private boolean[] evaluate_lics(InputHandler input)
+    private boolean[] evaluate_lics(final InputHandler input)
     {
         LicAnalyzer licAnalyzer = new LicAnalyzer();
-        final boolean[] lic_outcomes = {
+        final boolean[] lic_signals = {
             licAnalyzer.lic0(input),
             licAnalyzer.lic1(input),
             licAnalyzer.lic2(input),
@@ -25,27 +25,27 @@ public class App
             licAnalyzer.lic14(input)
         };
 
-        return lic_outcomes;
+        return lic_signals;
     }
 
     private boolean[][] calculate_PUM(final boolean[] CMV, 
                                       final CONNECTORS[][] LCM) 
     {
-        final int CMV_length = CMV.length;
-        boolean[][] PUM = new boolean[CMV_length][CMV_length];
-        for (int row = 0; row < CMV_length; ++row) {
-            for (int col = 0; col < CMV_length; ++col) {
+        final int conditionals = CMV.length;
+        boolean[][] PUM = new boolean[conditionals][conditionals];
+        for (int i = 0; i < conditionals; ++i) {
+            for (int j = 0; j < conditionals; ++j) {
 
-                CONNECTORS operation = LCM[row][col];
+                CONNECTORS operation = LCM[i][j];
                 switch (operation) {
                     case ANDD:
-                        PUM[row][col] = CMV[row] && CMV[col];
+                        PUM[i][j] = CMV[i] && CMV[j];
                         break;
                     case ORR:
-                        PUM[row][col] = CMV[row] || CMV[col];
+                        PUM[i][j] = CMV[i] || CMV[j];
                         break;
                     case NOTUSED:
-                        PUM[row][col] = true;
+                        PUM[i][j] = true;
                         break;
                 }
             }
@@ -75,7 +75,7 @@ public class App
         return FUV;
     }
 
-    public void decide(InputHandler input) {
+    public void decide(final InputHandler input) {
         System.out.println( "Entered DECIDE" );
 
         final boolean[]   CMV = evaluate_lics(input);
