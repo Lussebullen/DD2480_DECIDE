@@ -1,5 +1,6 @@
 package group17;
 
+import group17.InputHandler.CONNECTORS;
 
 public class App 
 {
@@ -27,17 +28,36 @@ public class App
         return lic_outcomes;
     }
 
-    private CONNECTOR[][] calculate_PUM(final boolean[] CMV, 
-                                        final CONNECTOR[][] LCM) 
+    private boolean[][] calculate_PUM(final boolean[] CMV, 
+                                      final CONNECTORS[][] LCM) 
     {
+        final int CMV_length = CMV.length;
+        boolean[][] PUM = new boolean[CMV_length][CMV_length];
+        for (int row = 0; row < CMV_length; ++row) {
+            for (int col = 0; col < CMV_length; ++col) {
+
+                CONNECTORS operation = LCM[row][col];
+                switch (operation) {
+                    case ANDD:
+                        PUM[row][col] = CMV[row] && CMV[col];
+                        break;
+                    case ORR:
+                        PUM[row][col] = CMV[row] || CMV[col];
+                        break;
+                    case NOTUSED:
+                        PUM[row][col] = true;
+                        break;
+                }
+            }
+        }
+        return PUM;
     }
 
     public void decide(InputHandler input) {
         System.out.println( "Entered DECIDE" );
 
         final boolean[] CMV = evaluate_lics(input);
-        final CONNECTOR[][] LCM = calculate_PUM(CMV, input.LCM);
-
+        final boolean[][] PUM = calculate_PUM(CMV, input.LCM);
     }
 
     public static void main( String[] args )
