@@ -47,7 +47,7 @@ public class InputHandler {
         ObjectMapper objectMapper = new ObjectMapper();
 
         // Read the JSON file into a JsonNode
-        JsonNode jsonNode = objectMapper.readTree(new File("decide/sampleData.json"));
+        JsonNode jsonNode = objectMapper.readTree(new File(filepath));
         NUMPOINTS = jsonNode.get("NUMPOINTS").asInt();
         X_COORD = jsonNode.get("X_COORD").traverse(objectMapper).readValueAs(double[].class); 
         Y_COORD = jsonNode.get("Y_COORD").traverse(objectMapper).readValueAs(double[].class); 

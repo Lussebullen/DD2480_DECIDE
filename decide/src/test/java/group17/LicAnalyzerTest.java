@@ -1,11 +1,20 @@
 package group17;
 
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LicAnalyzerTest {
     
+    private static InputHandler input;
+
+    @BeforeEach
+    public void setUp() {
+        input = new InputHandler("sampleData.json");
+    }
+
     @Test
     public void lic0Test() {
         assertTrue(true);
