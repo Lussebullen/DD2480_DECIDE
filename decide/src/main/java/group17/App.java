@@ -31,10 +31,10 @@ public class App
     private boolean[][] calculatePUM(final boolean[] CMV, 
                                      final CONNECTORS[][] LCM) 
     {
-        final int conditionals = CMV.length;
-        boolean[][] PUM = new boolean[conditionals][conditionals];
-        for (int i = 0; i < conditionals; ++i) {
-            for (int j = 0; j < conditionals; ++j) {
+        final int signals = CMV.length;
+        boolean[][] PUM = new boolean[signals][signals];
+        for (int i = 0; i < signals; ++i) {
+            for (int j = 0; j < signals; ++j) {
 
                 CONNECTORS operation = LCM[i][j];
                 switch (operation) {
