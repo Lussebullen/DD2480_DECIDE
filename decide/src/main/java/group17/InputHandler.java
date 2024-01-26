@@ -12,6 +12,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 
 public class InputHandler {
+    public enum CONNECTORS {
+        ANDD,
+        ORR,
+        NOTUSED
+    }
+
     int NUMPOINTS;
     double[][] POINTS;
     double LENGTH1;
@@ -32,7 +38,7 @@ public class InputHandler {
     double LENGTH2;
     double RADIUS2;
     double AREA2;
-    String[][] LCM;
+    CONNECTORS[][] LCM;
     boolean[] PUV;
     public InputHandler(String filepath) {    
         try {
@@ -60,7 +66,7 @@ public class InputHandler {
         RADIUS2 = jsonNode.get("RADIUS2").asDouble();
         AREA1 = jsonNode.get("AREA1").asDouble();
         AREA2 = jsonNode.get("AREA2").asDouble();
-        LCM = jsonNode.get("LCM").traverse(objectMapper).readValueAs(String[][].class); 
+        LCM = jsonNode.get("LCM").traverse(objectMapper).readValueAs(CONNECTORS[][].class); 
         PUV = jsonNode.get("PUV").traverse(objectMapper).readValueAs(boolean[].class); 
 
         } catch (IOException e) {
