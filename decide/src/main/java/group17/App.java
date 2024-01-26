@@ -4,31 +4,99 @@ import group17.InputHandler.CONNECTORS;
 
 public class App 
 {
-    public void decide(InputHandler input) {
-        System.out.println( "Entered DECIDE" );
+    private boolean[] evaluateLics(final InputHandler input)
+    {
         LicAnalyzer licAnalyzer = new LicAnalyzer();
-        boolean[] CMV = new boolean[15];
-        CMV[0]  = licAnalyzer.lic0(input);
-        CMV[1]  = licAnalyzer.lic1(input);
-        CMV[2]  = licAnalyzer.lic2(input);
-        CMV[3]  = licAnalyzer.lic3(input);
-        CMV[4]  = licAnalyzer.lic4(input);
-        CMV[5]  = licAnalyzer.lic5(input);
-        CMV[6]  = licAnalyzer.lic6(input);
-        CMV[7]  = licAnalyzer.lic7(input);
-        CMV[8]  = licAnalyzer.lic8(input);
-        CMV[9]  = licAnalyzer.lic9(input);
-        CMV[10] = licAnalyzer.lic10(input);
-        CMV[11] = licAnalyzer.lic11(input);
-        CMV[12] = licAnalyzer.lic12(input);
-        CMV[13] = licAnalyzer.lic13(input);
-        CMV[14] = licAnalyzer.lic14(input);
+        final boolean[] CMV = {
+            licAnalyzer.lic0(input),
+            licAnalyzer.lic1(input),
+            licAnalyzer.lic2(input),
+            licAnalyzer.lic3(input),
+            licAnalyzer.lic4(input),
+            licAnalyzer.lic5(input),
+            licAnalyzer.lic6(input),
+            licAnalyzer.lic7(input),
+            licAnalyzer.lic8(input),
+            licAnalyzer.lic9(input),
+            licAnalyzer.lic10(input),
+            licAnalyzer.lic11(input),
+            licAnalyzer.lic12(input),
+            licAnalyzer.lic13(input),
+            licAnalyzer.lic14(input)
+        };
+
+        return CMV;
+    }
+
+    private boolean[][] calculatePUM(final boolean[] CMV, 
+                                     final CONNECTORS[][] LCM) 
+    {
+        final int signals = CMV.length;
+        boolean[][] PUM = new boolean[signals][signals];
+        for (int i = 0; i < signals; ++i) {
+            for (int j = 0; j < signals; ++j) {
+
+                CONNECTORS operation = LCM[i][j];
+                switch (operation) {
+                    case ANDD:
+                        PUM[i][j] = CMV[i] && CMV[j];
+                        break;
+                    case ORR:
+                        PUM[i][j] = CMV[i] || CMV[j];
+                        break;
+                    case NOTUSED:
+                        PUM[i][j] = true;
+                        break;
+                }
+            }
+        }
+        return PUM;
+    }
+
+    private boolean[] calculateFUV(final boolean[][] PUM,
+                                   final boolean[] PUV)
+    {
+        final int signals = PUV.length;
+        boolean[] FUV = new boolean[signals];
+        for (int i = 0; i < signals; ++i) {
+            if (PUV[i] == false) {
+                FUV[i] = true;
+                continue;
+            }
+            for (int j = 0; j < signals; ++j) {
+               if (PUM[i][j] == true || i == j) {
+                   continue;
+               } else if (PUM[i][j] == false) {
+                   return FUV;
+               }
+            }
+            FUV[i] = true;
+        }
+        return FUV;
+    }
+
+    public void decide(final InputHandler input) {
+        System.out.println( "Entered DECIDE" );
+
+        final boolean[]   CMV = evaluateLics(input);
+        final boolean[][] PUM = calculatePUM(CMV, input.LCM);
+        final boolean[]   FUV = calculateFUV(PUM, input.PUV);
+
+        for (boolean signal : FUV) {
+            if (signal == true) {
+                continue;
+            } 
+            System.out.println("NO");
+            return;
+        }
+        System.out.println("YES");
     }
 
     public static void main( String[] args )
     {
         InputHandler input = new InputHandler("");
+        App missileSystem = new App();
+        missileSystem.decide(input);
         System.out.println( "Hello World!" );
-
     }
 }
