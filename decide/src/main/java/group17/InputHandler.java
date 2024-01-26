@@ -1,5 +1,6 @@
 package group17;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -69,6 +70,9 @@ public class InputHandler {
         LCM = jsonNode.get("LCM").traverse(objectMapper).readValueAs(CONNECTORS[][].class); 
         PUV = jsonNode.get("PUV").traverse(objectMapper).readValueAs(boolean[].class); 
 
+        } catch (FileNotFoundException e) {
+            System.err.println("Input file not found. Check that file exists and path is correct.");
+            System.exit(1);
         } catch (IOException e) {
             e.printStackTrace();
         }
