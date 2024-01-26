@@ -11,8 +11,8 @@ public class LicAnalyzerTest {
     private static InputHandler input;
 
     @BeforeEach
-    public static void setUp() {
-        input = new InputHandler("placeholder");
+    public void setUp() {
+        input = new InputHandler("sampleData.json");
     }
 
     @Test
