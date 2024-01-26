@@ -1,5 +1,7 @@
 package group17;
 
+import group17.InputHandler.CONNECTORS;
+
 public class App 
 {
     public void decide(InputHandler input) {
@@ -26,7 +28,6 @@ public class App
     public static void main( String[] args )
     {
         InputHandler input = new InputHandler("");
-        
         System.out.println( "Hello World!" );
 
     }
