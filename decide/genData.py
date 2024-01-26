@@ -4,11 +4,13 @@ import json
 
 def genData(npoints):
     dic = {"NUMPOINTS":npoints}
-    points = (np.random.rand(100,2)*100).tolist()
+    pointsX = (np.random.rand(100)*100).tolist()
+    pointsY = (np.random.rand(100)*100).tolist()
 
 
     # PARAMETERS
-    dic["POINTS"] = points
+    dic["X_COORD"] = pointsX
+    dic["Y_COORD"] = pointsY
     dic["LENGTH1"] = 20.2
     dic["RADIUS1"] = 2.9
     dic["RADIUS2"] = 4.1
