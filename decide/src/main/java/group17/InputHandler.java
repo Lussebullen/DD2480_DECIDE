@@ -20,7 +20,8 @@ public class InputHandler {
     }
 
     int NUMPOINTS;
-    double[][] POINTS;
+    double[] X_COORD;
+    double[] Y_COORD;
     double LENGTH1;
     double RADIUS1;
     double EPSILON;
@@ -48,7 +49,8 @@ public class InputHandler {
         // Read the JSON file into a JsonNode
         JsonNode jsonNode = objectMapper.readTree(new File("decide/sampleData.json"));
         NUMPOINTS = jsonNode.get("NUMPOINTS").asInt();
-        POINTS = jsonNode.get("POINTS").traverse(objectMapper).readValueAs(double[][].class); 
+        X_COORD = jsonNode.get("X_COORD").traverse(objectMapper).readValueAs(double[].class); 
+        Y_COORD = jsonNode.get("Y_COORD").traverse(objectMapper).readValueAs(double[].class); 
         LENGTH1 = jsonNode.get("LENGTH1").asDouble();
         RADIUS1 = jsonNode.get("RADIUS1").asDouble();
         EPSILON = jsonNode.get("EPSILON").asDouble();
