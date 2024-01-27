@@ -23,6 +23,7 @@ public class LicAnalyzerTest {
     @Test
     public void lic0ReturnsTrueIfConsecutivePointsGreaterThanLENGTH1Exists() {
         // Arrange
+        input.LENGTH1 = 3.0;
         input.NUMPOINTS = 2;
         input.X_COORD[0] = 1.0;
         input.Y_COORD[0] = 1.0;
