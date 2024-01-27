@@ -9,6 +9,21 @@ public class LicAnalyzer {
             throw new Exception("Exception thrown from: LIC 0. X_COORD or Y_COORD array points to null!");
         }
 
+        for (int i = 1; i < input.NUMPOINTS; ++i) {
+            double xCoordinate2 = input.X_COORD[i];
+            double yCoordinate2 = input.Y_COORD[i];
+
+            double xCoordinate1 = input.X_COORD[i - 1];
+            double yCoordinate1 = input.Y_COORD[i - 1];
+
+            double dx = Math.pow(xCoordinate2 - xCoordinate1, 2);
+            double dy = Math.pow(yCoordinate2 - yCoordinate1, 2);
+            double distance = Math.sqrt(dx + dy);
+
+            if (distance > input.LENGTH1) {
+                return true;
+            }
+        }
         return false;
     }
 
