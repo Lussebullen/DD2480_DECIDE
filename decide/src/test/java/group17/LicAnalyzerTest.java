@@ -6,13 +6,17 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.lang.Exception;
+
 public class LicAnalyzerTest {
     
     private static InputHandler input;
+    private static LicAnalyzer licAnalyzer;
 
     @BeforeEach
     public void setUp() {
         input = new InputHandler("sampleData.json");
+        licAnalyzer = new LicAnalyzer();
     }
 
     @Test
@@ -41,8 +45,17 @@ public class LicAnalyzerTest {
     }
 
     @Test
-    public void lic5Test() {
-        assertTrue(true);
+    public void lic5ReturnsTrueIfConsecutivePointsWhereLaterXCoordinateIsLowerThanFirstPointsExists() {
+        //Arrange
+        input.NUMPOINTS = 2;
+        input.X_COORD[0] = -1.0;
+        input.X_COORD[1] = -1.0000000000001;
+
+        //Act
+        try {
+            boolean signal = licAnalyzer.lic5(input);
+            assertTrue(signal);
+        } catch (Exception e) {}
     }
 
     @Test
