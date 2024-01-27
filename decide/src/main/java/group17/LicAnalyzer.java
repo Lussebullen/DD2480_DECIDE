@@ -22,7 +22,10 @@ public class LicAnalyzer {
         return false;
     }
 
-    public boolean lic5(InputHandler input) {
+    public boolean lic5(InputHandler input) throws NullPointerException{
+        if (input.X_COORD == null || input.Y_COORD == null) {
+            throw new NullPointerException("Exception thrown from: LIC 5. X_COORD or Y_COORD array points to null!");
+        }
         for (int i = 1; i < input.NUMPOINTS; ++i) {
             double xCoordinate2 = input.X_COORD[i];
             double xCoordinate1 = input.X_COORD[i - 1];
