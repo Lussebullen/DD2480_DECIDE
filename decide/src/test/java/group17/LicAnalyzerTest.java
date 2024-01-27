@@ -1,9 +1,11 @@
 package group17;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.lang.Exception;
@@ -56,6 +58,20 @@ public class LicAnalyzerTest {
             boolean signal = licAnalyzer.lic5(input);
             assertTrue(signal);
         } catch (Exception e) {}
+    }
+
+    @Test
+    public void lic5ThrowsExceptionIfInvalidArraysForPointsAreProvided() {
+        //Arrange
+        input.X_COORD = null;
+        input.Y_COORD = null;
+
+        //Act
+        Exception exception = Assertions.assertThrows(NullPointerException.class, () -> licAnalyzer.lic5(input));
+
+        //Assert
+        assertEquals("Exception thrown from: LIC 5. X_COORD or Y_COORD array points to null!",
+                     exception.getMessage());
     }
 
     @Test
