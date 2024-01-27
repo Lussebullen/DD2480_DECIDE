@@ -23,6 +23,14 @@ public class LicAnalyzer {
     }
 
     public boolean lic5(InputHandler input) {
+        for (int i = 1; i < input.NUMPOINTS; ++i) {
+            double xCoordinate2 = input.X_COORD[i];
+            double xCoordinate1 = input.X_COORD[i - 1];
+
+            if (xCoordinate2 - xCoordinate1 < 0.0) {
+                return true;
+            }
+        }
         return false;
     }
 
