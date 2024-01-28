@@ -42,7 +42,17 @@ public class LicAnalyzer {
         return false;
     }
 
-    private boolean helperLic10ThreePointsSeperateBy(int quantity1, int quantity2, InputHandler input)
+    /*
+     * Evaluate if three points exists such that point 1 and 2 are seperated by quantity1 and point 2 and point 3 are
+     * seperated by quantity2 with area greater than AREA1.
+     *
+     * @param quantity1 Number of consecutive intervening points between point 1 and point 2
+     * @param quantity2 Number of consecutive intervening points between point 2 and point 3
+     * @param input Class holding relevant data
+     *
+     * @return boolean True if such points exists, false otherwise
+     */
+    private boolean helperLic10ThreePointsSeperatedBy(int quantity1, int quantity2, InputHandler input)
     {
         for (int i = quantity1 + quantity2 + 2; i < input.NUMPOINTS; ++i) {
             int vertex3 = i;
@@ -81,10 +91,10 @@ public class LicAnalyzer {
             return false;
         }
 
-        boolean pointsFound = helperLic10ThreePointsSeperateBy(input.E_PTS, input.F_PTS, input);
+        boolean pointsFound = helperLic10ThreePointsSeperatedBy(input.E_PTS, input.F_PTS, input);
         if (!pointsFound) {
             // Reverse order
-            pointsFound = helperLic10ThreePointsSeperateBy(input.F_PTS, input.E_PTS, input);
+            pointsFound = helperLic10ThreePointsSeperatedBy(input.F_PTS, input.E_PTS, input);
         }
         return pointsFound;
 
