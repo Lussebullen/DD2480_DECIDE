@@ -22,6 +22,7 @@ public class LicAnalyzerTest {
         licAnalyzer = new LicAnalyzer();
     }
 
+///////////////////////////// Lic 0 /////////////////////////////
 
     @Test
     public void lic0ReturnsTrueIfConsecutivePositivePointsGreaterThanLENGTH1ApartExists() {
@@ -105,11 +106,89 @@ public class LicAnalyzerTest {
         //Act, Assert
         assertThrows(Exception.class, () -> licAnalyzer.lic0(input));
     }
+///////////////////////////// Lic 1 /////////////////////////////
 
     @Test
-    public void lic1Test() {
-        assertTrue(true);
+    public void lic1TestUncontained() {
+        input.NUMPOINTS = 4;
+        input.X_COORD = new double[]{-1.0, 1.0, 3.0, 7.0};
+        input.Y_COORD = new double[]{-1.0, 0.0, 3.0, 3.0};
+        input.RADIUS1 = 3;
+        assertTrue(licAnalyzer.lic1(input));
     }
+
+    public void lic1TestContained() {
+        input.NUMPOINTS = 4;
+        input.X_COORD = new double[]{-1.0, 1.0, 3.0, 5.0};
+        input.Y_COORD = new double[]{-1.0, 0.0, 3.0, 3.0};
+        input.RADIUS1 = 3;
+        assertFalse(licAnalyzer.lic1(input));
+    }
+
+    @Test
+    public void lic1TestContainedBoundary() {
+        input.NUMPOINTS = 4;
+        input.X_COORD = new double[]{-3.0, 0.0, 3.0, 5.0};
+        input.Y_COORD = new double[]{0.0, 3.0, 0.0, 3.0};
+        input.RADIUS1 = 3;
+        assertFalse(licAnalyzer.lic1(input));
+    }
+
+    @Test
+    public void lic1TestContained3Points() {
+        input.NUMPOINTS = 3;
+        input.X_COORD = new double[]{1.0, 0.0, 0.0};
+        input.Y_COORD = new double[]{0.0, 1.0, 0.0};
+        input.RADIUS1 = 3;
+        assertFalse(licAnalyzer.lic1(input));
+    }
+
+    @Test
+    public void lic1TestUncontained3Points() {
+        input.NUMPOINTS = 3;
+        input.X_COORD = new double[]{-4.0, 0.0, 4.0};
+        input.Y_COORD = new double[]{0.0, 0.0, 0.0};
+        input.RADIUS1 = 3;
+        assertTrue(licAnalyzer.lic1(input));
+    }
+
+    @Test
+    public void lic1TestContainedZeroRadius() {
+        input.NUMPOINTS = 3;
+        input.X_COORD = new double[]{1.0, 1.0, 1.0};
+        input.Y_COORD = new double[]{1.0, 1.0, 1.0};
+        input.RADIUS1 = 0;
+        assertFalse(licAnalyzer.lic1(input));
+    }
+
+    @Test
+    public void lic1TestUncontainedZeroRadius() {
+        input.NUMPOINTS = 3;
+        input.X_COORD = new double[]{1.0, 0.0, 1.0};
+        input.Y_COORD = new double[]{1.0, 1.0, 1.0};
+        input.RADIUS1 = 0;
+        assertTrue(licAnalyzer.lic1(input));
+    }
+
+    @Test
+    public void lic1TestTooFewPoints() {
+        input.NUMPOINTS = 2;
+        input.X_COORD = new double[]{-4.0, 0.0};
+        input.Y_COORD = new double[]{0.0, 0.0};
+        input.RADIUS1 = 3;
+        assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic1(input));
+    }
+
+    @Test
+    public void lic1TestNegativeRadius() {
+        input.NUMPOINTS = 3;
+        input.X_COORD = new double[]{-4.0, 0.0, 4.0};
+        input.Y_COORD = new double[]{0.0, 0.0, 0.0};
+        input.RADIUS1 = -1;
+        assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic1(input));
+    }
+
+///////////////////////////// Lic 2 /////////////////////////////
 
     @Test
     public void lic2AngleOutsideEPSILONRadius() {
@@ -151,6 +230,8 @@ public class LicAnalyzerTest {
         assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic2(input));
     }
 
+///////////////////////////// Lic 3 /////////////////////////////
+
     @Test
     public void lic3TestTriangleAreaGreaterThanAREA1() {
         input.NUMPOINTS = 3;
@@ -185,10 +266,14 @@ public class LicAnalyzerTest {
         assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic3(input));
     }
 
+///////////////////////////// Lic 4 /////////////////////////////
+
     @Test
     public void lic4Test() {
         assertTrue(true);
     }
+
+///////////////////////////// Lic 5 /////////////////////////////
 
     @Test
     public void lic5ReturnsTrueIfConsecutivePointsWhereLaterXCoordinateIsLowerThanFirstExistsAndBothAreNegativeNumbers() {
@@ -259,10 +344,14 @@ public class LicAnalyzerTest {
 
     }
 
+///////////////////////////// Lic 6 /////////////////////////////
+
     @Test
     public void lic6Test() {
         assertTrue(true);
     }
+
+///////////////////////////// Lic 7 /////////////////////////////
 
     @Test
     public void lic7DistanceLongerThanLength() {
@@ -319,15 +408,21 @@ public class LicAnalyzerTest {
         assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic7(input));
     }
 
+///////////////////////////// Lic 8 /////////////////////////////
+
     @Test
     public void lic8Test() {
         assertTrue(true);
     }
 
+///////////////////////////// Lic 9 /////////////////////////////
+
     @Test
     public void lic9Test() {
         assertTrue(true);
     }
+
+///////////////////////////// Lic 10 /////////////////////////////
 
     @Test
     public void lic10IsTrueIfThreePointsSeperatedByTwoAndFourPointsExistsWithAreaGreaterThan49() {
@@ -374,28 +469,32 @@ public class LicAnalyzerTest {
         assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic10(input));
     }
 
+///////////////////////////// Lic 11 /////////////////////////////
+
     @Test
     public void lic11Test() {
         assertTrue(true);
     }
+
+///////////////////////////// Lic 12 /////////////////////////////
 
     @Test
     public void lic12Test() {
         assertTrue(true);
     }
 
+///////////////////////////// Lic 13 /////////////////////////////
+
     @Test
     public void lic13Test() {
         assertTrue(true);
     }
+
+///////////////////////////// Lic 14 /////////////////////////////
 
     @Test
     public void lic14Test() {
         assertTrue(true);
     }
 
-    @Test
-    public void lic15Test() {
-        assertTrue(true);
-    }
 }
