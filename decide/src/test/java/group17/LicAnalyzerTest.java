@@ -92,6 +92,15 @@ public class LicAnalyzerTest {
     }
 
     @Test
+    public void lic10ThrowsExceptionOnInvalidE_PTSValue() {
+        //Arrange
+        input.F_PTS = -1;
+
+        //Act, Assert
+        assertThrows(Exception.class, () -> licAnalyzer.lic10(input));
+    }
+
+    @Test
     public void lic11Test() {
         assertTrue(true);
     }
