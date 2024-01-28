@@ -74,11 +74,9 @@ public class LicAnalyzerTest {
     @Test
     public void lic10IsTrueIfThreePointsSeperatedByTwoAndFourPointsExistsWithAreaGreaterThan49() {
         //Arrange
-        double[] arrangedX_COORD = {1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 11.0};
-        double[] arrangedY_COORD = {1.0, 0.0, 0.0, 11.0, 0.0, 0.0, 0.0, 0.0, 1.0};
+        input.X_COORD = new double[]{1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 11.0};
+        input.Y_COORD = new double[]{1.0, 0.0, 0.0, 11.0, 0.0, 0.0, 0.0, 0.0, 1.0};
 
-        input.X_COORD = arrangedX_COORD;
-        input.Y_COORD = arrangedY_COORD;
         input.NUMPOINTS = 9;
         input.E_PTS = 2;
         input.F_PTS = 4;
