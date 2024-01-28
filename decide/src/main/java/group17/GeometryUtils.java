@@ -24,7 +24,7 @@ public class GeometryUtils {
         double uY = y2 - y1;
         double vX = x2 - x3;
         double vY = y2 - x3;
-        double uv_dotProduct = (uX * uY) + (vX * vY);
+        double uv_dotProduct = (uX * vX) + (uY * vY);
 
         double uMagnitude = Math.sqrt(Math.pow(uX, 2) + Math.pow(uY, 2));
         double vMagnitude = Math.sqrt(Math.pow(vX, 2) + Math.pow(vY, 2));
