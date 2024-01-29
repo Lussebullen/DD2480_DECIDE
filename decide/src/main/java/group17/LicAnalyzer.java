@@ -2,6 +2,13 @@ package group17;
 
 public class LicAnalyzer {
 
+     /*
+     * Evaluates if set of two consecutive points greater than LENGTH1 apart exists.
+     *
+     * @param  input  object whose members hold data for the problem; relevant 
+                      fields for lic0 are: NUMPOINTS, X_COORD, Y_COORD, LENGTH1
+     * @return        true if set exists, false otherwise
+     */
     public boolean lic0(InputHandler input) {
         if (input.NUMPOINTS < 0) {
             throw new IllegalArgumentException("Exception thrown from: LIC 0. Reason: NUMPOINTS < 0");
