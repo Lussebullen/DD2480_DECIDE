@@ -81,18 +81,20 @@ public class LicAnalyzer {
     }
 
     /*
-     * Evaluates existance of a set of three points seperated by E_PTS and F_PTS 
-     * respecively that together has area greather than AREA1.
+     * Evaluates existence of a set of three points seperated by E_PTS and F_PTS
+     * respectively that together has area greater than AREA1.
      *
      * @param  input  object whose members hold data for the problem; relevant 
-                      fields for lic10 are: NUMPOINTS, E_PTS, F_PTS, AREA1.
+                      fields for lic10 are: NUMPOINTS, E_PTS, F_PTS, AREA1, X_COORD, Y_COORD
      * @return        true if set exists, false otherwise
      */
-    public boolean lic10(InputHandler input) throws Exception {
-        if (input.E_PTS < 1 || input.F_PTS < 1) {
-            throw new Exception("Exception thrown from: LIC 10. E_PTS < 1 or F_PTS < 1.");
+    public boolean lic10(InputHandler input) {
+        if (input.NUMPOINTS < 0) {
+            throw new IllegalArgumentException("Exception thrown from: LIC 10. Reason: NUMPOINTS < 0.");
+        } else if (input.E_PTS < 1 || input.F_PTS < 1) {
+            throw new IllegalArgumentException("Exception thrown from: LIC 10. Reason: E_PTS < 1 or F_PTS < 1.");
         } else if (input.NUMPOINTS < input.E_PTS + input.F_PTS + 3) {
-            throw new Exception("Exception thrown from: LIC 10. NUMPOINTS is lower than E_PTS + F_PTS + 3.");
+            throw new IllegalArgumentException("Exception thrown from: LIC 10. Reason: NUMPOINTS < E_PTS + F_PTS + 3.");
         }
 
         if (input.NUMPOINTS < 5) {
@@ -101,7 +103,7 @@ public class LicAnalyzer {
 
         boolean pointsFound = helperLic10ThreePointsSeperatedBy(input.E_PTS, input.F_PTS, input);
         if (!pointsFound) {
-            // Reverse order
+            // Points might exist but seperated in opposite order to call above
             pointsFound = helperLic10ThreePointsSeperatedBy(input.F_PTS, input.E_PTS, input);
         }
         return pointsFound;
