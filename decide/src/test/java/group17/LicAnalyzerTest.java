@@ -45,17 +45,28 @@ public class LicAnalyzerTest {
     }
 
     @Test
-    public void lic5ReturnsTrueIfConsecutivePointsWhereLaterXCoordinateIsLowerThanFirstPointsExists() {
+    public void lic5ReturnsTrueIfConsecutivePointsWhereLaterXCoordinateIsLowerThanFirstExistsAndBothAreNegativeNumbers() {
         //Arrange
-        input.X_COORD = new double[]{0.0, 0.0, -1.0};
-        input.X_COORD = new double[]{0.0, 0.0, -1.0000000000001};
+        input.X_COORD = new double[]{-1.0, -1.0000001};
         input.NUMPOINTS = input.X_COORD.length;
 
         //Act
-        try {
-            boolean signal = licAnalyzer.lic5(input);
-            assertTrue(signal);
-        } catch (Exception e) {}
+        boolean signal = licAnalyzer.lic5(input);
+
+        //Assertions
+        assertTrue(signal);
+    }
+    @Test
+    public void lic5ReturnsTrueIfConsecutivePointsWhereLaterXCoordinateIsLowerThanFirstExistsAndLaterIsNegativeNumber() {
+        //Arrange
+        input.X_COORD = new double[]{2.0, -1.0};
+        input.NUMPOINTS = input.X_COORD.length;
+
+        //Act
+        boolean signal = licAnalyzer.lic5(input);
+        
+        //Assert
+        assertTrue(signal);
     }
 
     @Test
