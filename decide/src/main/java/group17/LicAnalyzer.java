@@ -80,6 +80,14 @@ public class LicAnalyzer {
         return false;
     }
 
+    /*
+     * Evaluates existance of a set of three points seperated by E_PTS and F_PTS 
+     * respecively that together has area greather than AREA1.
+     *
+     * @param  input  object whose members hold data for the problem; relevant 
+                      fields for lic10 are: NUMPOINTS, E_PTS, F_PTS, AREA1.
+     * @return        true if set exists, false otherwise
+     */
     public boolean lic10(InputHandler input) throws Exception {
         if (input.E_PTS < 1 || input.F_PTS < 1) {
             throw new Exception("Exception thrown from: LIC 10. E_PTS < 1 or F_PTS < 1.");
