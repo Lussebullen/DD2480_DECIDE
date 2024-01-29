@@ -22,15 +22,18 @@ public class LicAnalyzer {
         return false;
     }
 
-    public boolean lic5(InputHandler input) throws NullPointerException{
+    public boolean lic5(InputHandler input) throws IllegalArgumentException {
+        if (input.NUMPOINTS < 0) {
+            throw new IllegalArgumentException("Exception thrown from: LIC 5. NUMPOINTS can't be < 0.");
+        }
         if (input.X_COORD == null || input.Y_COORD == null) {
-            throw new NullPointerException("Exception thrown from: LIC 5. X_COORD or Y_COORD array points to null!");
+            throw new IllegalArgumentException("Exception thrown from: LIC 5. X_COORD or Y_COORD array points to null!");
         }
         for (int i = 1; i < input.NUMPOINTS; ++i) {
             double xCoordinate2 = input.X_COORD[i];
             double xCoordinate1 = input.X_COORD[i - 1];
 
-            if (xCoordinate2 - xCoordinate1 < 0.0) {
+            if (xCoordinate2 < xCoordinate1) {
                 return true;
             }
         }
