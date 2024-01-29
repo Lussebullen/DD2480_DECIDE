@@ -2,11 +2,13 @@ package group17;
 
 public class LicAnalyzer {
 
-    public boolean lic0(InputHandler input) throws Exception {
-        if (input.LENGTH1 < 0.0) {
-           throw new Exception("Exception thrown from: LIC 0. LENGTH1 < 0");
+    public boolean lic0(InputHandler input) {
+        if (input.NUMPOINTS < 0) {
+            throw new IllegalArgumentException("Exception thrown from: LIC 0. Reason: NUMPOINTS < 0");
+        } else if (input.LENGTH1 < 0.0) {
+           throw new IllegalArgumentException("Exception thrown from: LIC 0. Reason: LENGTH1 < 0");
         } else if (input.X_COORD == null || input.Y_COORD == null) {
-            throw new Exception("Exception thrown from: LIC 0. X_COORD or Y_COORD array points to null!");
+            throw new IllegalArgumentException("Exception thrown from: LIC 0. Reason: X_COORD or Y_COORD array points to null!");
         }
 
         for (int i = 1; i < input.NUMPOINTS; ++i) {
