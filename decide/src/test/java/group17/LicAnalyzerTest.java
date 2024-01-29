@@ -47,9 +47,9 @@ public class LicAnalyzerTest {
     @Test
     public void lic5ReturnsTrueIfConsecutivePointsWhereLaterXCoordinateIsLowerThanFirstPointsExists() {
         //Arrange
-        input.NUMPOINTS = 2;
-        input.X_COORD[0] = -1.0;
-        input.X_COORD[1] = -1.0000000000001;
+        input.X_COORD = new double[]{0.0, 0.0, -1.0};
+        input.X_COORD = new double[]{0.0, 0.0, -1.0000000000001};
+        input.NUMPOINTS = input.X_COORD.length;
 
         //Act
         try {
@@ -63,7 +63,7 @@ public class LicAnalyzerTest {
         //Arrange
         input.NUMPOINTS = -1;
 
-        //Act
+        //Act, Assert
         assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic5(input));
     }
 
