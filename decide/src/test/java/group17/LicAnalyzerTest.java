@@ -22,7 +22,7 @@ public class LicAnalyzerTest {
     }
 
     @Test
-    public void lic0ReturnsTrueIfConsecutivePointsGreaterThanLENGTH1ApartExists() {
+    public void lic0ReturnsTrueIfConsecutivePositivePointsGreaterThanLENGTH1ApartExists() {
         // Arrange
         input.LENGTH1 = 3.0;
         input.X_COORD = new double[]{1.0, 10.0};
@@ -87,9 +87,9 @@ public class LicAnalyzerTest {
         assertThrows(Exception.class, () -> licAnalyzer.lic0(input));
     }
     @Test
-    public void lic0ThrowsExceptionIfNUMPOINTSIsBelowZero() {
+    public void lic0ThrowsExceptionIfNUMPOINTSIsBelow2() {
         //Arrange
-        input.NUMPOINTS = -1;
+        input.NUMPOINTS = 1;
 
         //Act, Assert
         assertThrows(Exception.class, () -> licAnalyzer.lic0(input));
