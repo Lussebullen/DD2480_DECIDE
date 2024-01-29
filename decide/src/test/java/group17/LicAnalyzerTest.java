@@ -51,6 +51,15 @@ public class LicAnalyzerTest {
         //Act, Assert
         assertThrows(Exception.class, () -> licAnalyzer.lic0(input));
     }
+    @Test
+    public void lic0ThrowsExceptionIfNullPointingCoordinateArray() {
+        //Arrange
+        input.X_COORD = null;
+        input.Y_COORD = null;
+
+        //Act, Assert
+        assertThrows(Exception.class, () -> licAnalyzer.lic0(input));
+    }
 
     @Test
     public void lic1Test() {
