@@ -90,8 +90,58 @@ public class LicAnalyzerTest {
     }
 
     @Test
-    public void lic7Test() {
-        assertTrue(true);
+    public void lic7DistanceLongerThanLength() {
+        input.NUMPOINTS = 5;
+        input.X_COORD = new double[]{0.0, 3.0, 1.0, 2.0, 7.0};
+        input.Y_COORD = new double[]{0.0, 1.0, 1.0, 0.0, 5.0};
+        input.K_PTS= 2;
+        input.LENGTH1 = 1;
+
+        assertTrue(licAnalyzer.lic7(input));
+    }
+    @Test
+
+    public void lic7DistanceLongerThanLength2() {
+        input.NUMPOINTS = 3;
+        input.X_COORD = new double[]{0.0, 3.0, 1.0};
+        input.Y_COORD = new double[]{0.0, 1.0, 1.0};
+        input.K_PTS= 1;
+        input.LENGTH1 = 1;
+
+        assertTrue(licAnalyzer.lic7(input));
+    }
+
+    @Test
+    public void lic7DistanceShorterThanLength() {
+        input.NUMPOINTS = 3;
+        input.X_COORD = new double[]{0.0, 3.0, 1.0};
+        input.Y_COORD = new double[]{0.0, 1.0, 1.0};
+        input.K_PTS= 1;
+        input.LENGTH1 = 2;
+
+        assertFalse(licAnalyzer.lic7(input));
+    }
+
+    @Test
+    public void lic7InvalidLENGTH1() {
+        input.NUMPOINTS = 3;
+        input.X_COORD = new double[]{0.0, 3.0, 1.0};
+        input.Y_COORD = new double[]{0.0, 1.0, 1.0};
+        input.K_PTS= 1;
+        input.LENGTH1 = -1;
+
+        assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic7(input));
+    }
+
+    @Test
+    public void lic7InvalidK_PTS() {
+        input.NUMPOINTS = 5;
+        input.X_COORD = new double[]{0.0, 0.0, 0.0, 3.0, 1.0};
+        input.Y_COORD = new double[]{0.0, 0.0, 0.0, 1.0, 1.0};
+        input.K_PTS= 4;
+        input.LENGTH1 = 2;
+
+        assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic7(input));
     }
 
     @Test
