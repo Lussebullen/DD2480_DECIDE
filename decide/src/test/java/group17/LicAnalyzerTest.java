@@ -8,8 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.lang.Exception;
-
 public class LicAnalyzerTest {
     
     private static InputHandler input;
@@ -61,17 +59,23 @@ public class LicAnalyzerTest {
     }
 
     @Test
-    public void lic5ThrowsExceptionIfInvalidArraysForPointsAreProvided() {
+    public void lic5ThrowsIllegalArgumentExceptionIfNUMPOINTSIsNegative() {
+        //Arrange
+        input.NUMPOINTS = -1;
+
+        //Act
+        assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic5(input));
+    }
+
+    @Test
+    public void lic5ThrowsIllegalArgumentExceptionIfInvalidArraysForPointsAreProvided() {
         //Arrange
         input.X_COORD = null;
         input.Y_COORD = null;
 
-        //Act
-        Exception exception = Assertions.assertThrows(NullPointerException.class, () -> licAnalyzer.lic5(input));
+        //Act, Assert
+        Assertions.assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic5(input));
 
-        //Assert
-        assertEquals("Exception thrown from: LIC 5. X_COORD or Y_COORD array points to null!",
-                     exception.getMessage());
     }
 
     @Test
