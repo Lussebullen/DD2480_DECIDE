@@ -67,8 +67,7 @@ public class LicAnalyzer {
     public boolean lic5(InputHandler input) throws IllegalArgumentException {
         if (input.NUMPOINTS < 2 || input.NUMPOINTS > 100) {
             throw new IllegalArgumentException("Exception thrown from: LIC 0. Reason: NUMPOINTS outside range [2, 100].");
-        }
-        if (input.X_COORD == null || input.Y_COORD == null) {
+        } else if (input.X_COORD == null || input.Y_COORD == null) {
             throw new IllegalArgumentException("Exception thrown from: LIC 5. X_COORD or Y_COORD array points to null!");
         }
         for (int i = 1; i < input.NUMPOINTS; ++i) {
