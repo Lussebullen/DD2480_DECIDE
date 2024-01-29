@@ -31,4 +31,16 @@ public class GeometryUtils {
 
         return Math.acos(uv_dotProduct / (uMagnitude * vMagnitude));
     }
+
+    /**
+     * Calculates and returns the distance between the points (x1,y1), (x2,y2).
+     * @param x1 X coordinate of first point.
+     * @param y1 Y coordinate of first point.
+     * @param x2 X coordinate of second point.
+     * @param y2 Y coordinate of second point.
+     * @return double
+     */
+    public double dist(double x1, double y1, double x2, double y2) {
+        return Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));
+    }
 }
