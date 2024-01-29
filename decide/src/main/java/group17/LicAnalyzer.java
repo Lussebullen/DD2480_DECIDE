@@ -2,6 +2,8 @@ package group17;
 
 public class LicAnalyzer {
 
+    GeometryUtils geoUtils = new GeometryUtils();
+
     public boolean lic0(InputHandler input) {
         return false;
     }
@@ -10,7 +12,38 @@ public class LicAnalyzer {
         return false;
     }
 
+    /**
+     * This function calculates Launch Interceptor Condition (LIC) number 2
+     *  
+     * @param input.NUMPOINTS,EPSILON,X_COORD,Y_COORD
+     * @return true if any 3 consecutive points make an angle outside of the EPSILON radius around PI/180 deg
+     */
     public boolean lic2(InputHandler input) {
+
+        if (input.NUMPOINTS < 3 || input.NUMPOINTS > 100) {
+            throw new IllegalArgumentException("NUMPOINTS must be between 2 (inclusive) and 100 (inclusive)");
+        }
+
+        if (input.EPSILON < 0 || input.EPSILON >= Math.PI) {
+            throw new IllegalArgumentException("EPSILON must be between 0 (inclusive) and PI (non-inclusive");
+        }
+
+        for (int i = 0; i < input.NUMPOINTS - 2; i++) {
+            double x1 = input.X_COORD[i], y1 = input.Y_COORD[i];
+            double x2 = input.X_COORD[i+1], y2 = input.Y_COORD[i+1];
+            double x3 = input.X_COORD[i+2], y3 = input.Y_COORD[i+2];
+
+            if (x2 == x1 && y2 == y1 || x2 == x3 && y2 == y3) {
+                continue;
+            }
+
+            double angle = geoUtils.calcAngle(x1, y1, x2, y2, x3, y3);
+
+            if (angle < (Math.PI - input.EPSILON) || angle > (Math.PI + input.EPSILON)) {
+                return true;
+            }
+        }
+
         return false;
     }
 
