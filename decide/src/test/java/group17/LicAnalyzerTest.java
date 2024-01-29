@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -61,6 +62,20 @@ public class LicAnalyzerTest {
 
         //Assert
         assertTrue(signal);
+    }
+    @Test
+    public void lic0ReturnsFalseIfNoConsecutivePointsGreaterThanLENGTH1ApartExists() {
+        // Arrange
+        input.LENGTH1 = Math.sqrt(2) + 0.00000001;
+        input.X_COORD = new double[]{1.0, 2.0};
+        input.Y_COORD = new double[]{1.0, 2.0};
+        input.NUMPOINTS = input.X_COORD.length;
+
+        //Act
+        boolean signal = licAnalyzer.lic0(input);
+
+        //Assert
+        assertFalse(signal);
     }
 
     @Test
