@@ -43,6 +43,14 @@ public class LicAnalyzerTest {
         //Act, Assert
         assertThrows(Exception.class, () -> licAnalyzer.lic0(input));
     }
+    @Test
+    public void lic0ThrowsExceptionIfNUMPOINTSIsBelowZero() {
+        //Arrange
+        input.NUMPOINTS = -1;
+
+        //Act, Assert
+        assertThrows(Exception.class, () -> licAnalyzer.lic0(input));
+    }
 
     @Test
     public void lic1Test() {
