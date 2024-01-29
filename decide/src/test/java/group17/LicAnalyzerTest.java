@@ -81,6 +81,18 @@ public class LicAnalyzerTest {
         //Assert
         assertFalse(signal);
     }
+    @Test
+    public void lic5ReturnsFalseIfNoConsecutivePointsWhereLaterIsGreaterExistsBothNumberNegative() {
+        //Arrange
+        input.X_COORD = new double[]{-2.1, -2.0};
+        input.NUMPOINTS = input.X_COORD.length;
+
+        //Act
+        boolean signal = licAnalyzer.lic5(input);
+
+        //Assert
+        assertFalse(signal);
+    }
 
     @Test
     public void lic5ThrowsIllegalArgumentExceptionIfNUMPOINTSIsNegative() {
