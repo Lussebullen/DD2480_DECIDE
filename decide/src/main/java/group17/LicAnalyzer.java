@@ -89,8 +89,8 @@ public class LicAnalyzer {
      * @return        true if set exists, false otherwise
      */
     public boolean lic10(InputHandler input) {
-        if (input.NUMPOINTS < 0) {
-            throw new IllegalArgumentException("Exception thrown from: LIC 10. Reason: NUMPOINTS < 0.");
+        if (input.NUMPOINTS < 2 || input.NUMPOINTS > 100) {
+            throw new IllegalArgumentException("Exception thrown from: LIC 10. Reason: NUMPOINTS outside range [2, 100].");
         } else if (input.E_PTS < 1 || input.F_PTS < 1) {
             throw new IllegalArgumentException("Exception thrown from: LIC 10. Reason: E_PTS < 1 or F_PTS < 1.");
         } else if (input.NUMPOINTS < input.E_PTS + input.F_PTS + 3) {
