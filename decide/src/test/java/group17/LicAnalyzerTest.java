@@ -21,26 +21,22 @@ public class LicAnalyzerTest {
     }
 
     @Test
-    public void lic0ReturnsTrueIfConsecutivePointsGreaterThanLENGTH1Exists() {
+    public void lic0ReturnsTrueIfConsecutivePointsGreaterThanLENGTH1ApartExists() {
         // Arrange
         input.LENGTH1 = 3.0;
-        input.NUMPOINTS = 2;
-        input.X_COORD[0] = 1.0;
-        input.Y_COORD[0] = 1.0;
+        input.X_COORD = new double[]{1.0, 10.0};
+        input.Y_COORD = new double[]{1.0, 10.0};
+        input.NUMPOINTS = input.X_COORD.length;
 
-        input.X_COORD[1] = 10.0;
-        input.Y_COORD[1] = 10.0;
+        //Act
+        boolean signal = licAnalyzer.lic0(input);
 
-        try {
-            //Act
-            boolean signal = licAnalyzer.lic0(input);
-            //Assert
-            assertTrue(signal);
-        } catch (Exception e) {}
+        //Assert
+        assertTrue(signal);
     }
 
     @Test
-    public void lic0ThrowsErrorIfLENGTH1IsInvalidByBeingLowerThanError() {
+    public void lic0ThrowsExceptionIfLENGTH1IsBelowZero() {
         //Arrange
         input.LENGTH1 = -0.00000001;
 
