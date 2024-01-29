@@ -48,6 +48,20 @@ public class LicAnalyzerTest {
         //Assert
         assertTrue(signal);
     }
+    @Test
+    public void lic0ReturnsTrueIfConsecutivePointsInQ2AndQ4GreaterThanLENGTH1ApartExists() {
+        // Arrange
+        input.LENGTH1 = 3.0;
+        input.X_COORD = new double[]{1.0, -10.0};
+        input.Y_COORD = new double[]{-1.0, 10.0};
+        input.NUMPOINTS = input.X_COORD.length;
+
+        //Act
+        boolean signal = licAnalyzer.lic0(input);
+
+        //Assert
+        assertTrue(signal);
+    }
 
     @Test
     public void lic0ThrowsExceptionIfLENGTH1IsBelowZero() {
