@@ -5,11 +5,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LicAnalyzerTest {
-    
+
     private static InputHandler input;
     private static LicAnalyzer licAnalyzer;
 
@@ -64,9 +65,21 @@ public class LicAnalyzerTest {
 
         //Act
         boolean signal = licAnalyzer.lic5(input);
-        
+
         //Assert
         assertTrue(signal);
+    }
+    @Test
+    public void lic5ReturnsFalseIfNoConsecutivePointsWhereLaterIsGreaterExistsBothNumberPositive() {
+        //Arrange
+        input.X_COORD = new double[]{2.0, 2.1};
+        input.NUMPOINTS = input.X_COORD.length;
+
+        //Act
+        boolean signal = licAnalyzer.lic5(input);
+
+        //Assert
+        assertFalse(signal);
     }
 
     @Test
