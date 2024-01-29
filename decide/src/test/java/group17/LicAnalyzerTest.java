@@ -8,9 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.awt.color.ICC_ColorSpace;
-import java.lang.Exception;
-
 public class LicAnalyzerTest {
     
     private static InputHandler input;
@@ -132,7 +129,7 @@ public class LicAnalyzerTest {
         input.F_PTS = -1;
 
         //Act, Assert
-        assertThrows(Exception.class, () -> licAnalyzer.lic10(input));
+        assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic10(input));
     }
     @Test
     public void lic10ThrowsExceptionOnInvalidE_PTS() {
@@ -140,7 +137,7 @@ public class LicAnalyzerTest {
         input.E_PTS = -1;
 
         //Act, Assert
-        assertThrows(Exception.class, () -> licAnalyzer.lic10(input));
+        assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic10(input));
     }
     @Test
     public void lic10ThrowsExceptionOnInvalidNUMPOINTS() {
@@ -150,7 +147,7 @@ public class LicAnalyzerTest {
         input.F_PTS = 10;
 
         //Act, Assert
-        assertThrows(Exception.class, () -> licAnalyzer.lic10(input));
+        assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic10(input));
     }
 
     @Test
