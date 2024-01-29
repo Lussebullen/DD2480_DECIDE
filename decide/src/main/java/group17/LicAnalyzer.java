@@ -57,7 +57,7 @@ public class LicAnalyzer {
 
      /*
      * Evaluates if a set of two consecutive points exists where latter point has a lower value on its x-coordinate,
-     * more specifically, if it exists points such that X[i] < X[j], where j = i - 1 and X is a containe storing
+     * more specifically, if it exists points such that X[i] < X[j], where j = i - 1 and X is a contains storing
      * every point's x-coordinate.
      *
      * @param  input  object whose members hold data for the problem; relevant 
