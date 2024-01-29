@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.awt.color.ICC_ColorSpace;
 import java.lang.Exception;
 
 public class LicAnalyzerTest {
@@ -77,24 +78,40 @@ public class LicAnalyzerTest {
         input.X_COORD = new double[]{1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 11.0};
         input.Y_COORD = new double[]{1.0, 0.0, 0.0, 11.0, 0.0, 0.0, 0.0, 0.0, 1.0};
 
-        input.NUMPOINTS = 9;
+        input.NUMPOINTS = input.X_COORD.length;
         input.E_PTS = 2;
         input.F_PTS = 4;
         input.AREA1 = 49.0;
 
-        try {
-            //Act
-            boolean signal = licAnalyzer.lic10(input);
+        //Act
+        boolean signal = licAnalyzer.lic10(input);
 
-            // Assert
-            assertTrue(signal);
-        } catch (Exception e) {}
+        // Assert
+        assertTrue(signal);
     }
 
     @Test
-    public void lic10ThrowsExceptionOnInvalidE_PTSValue() {
+    public void lic10ThrowsExceptionOnInvalidF_PTS() {
         //Arrange
         input.F_PTS = -1;
+
+        //Act, Assert
+        assertThrows(Exception.class, () -> licAnalyzer.lic10(input));
+    }
+    @Test
+    public void lic10ThrowsExceptionOnInvalidE_PTS() {
+        //Arrange
+        input.E_PTS = -1;
+
+        //Act, Assert
+        assertThrows(Exception.class, () -> licAnalyzer.lic10(input));
+    }
+    @Test
+    public void lic10ThrowsExceptionOnInvalidNUMPOINTS() {
+        //Arrange
+        input.NUMPOINTS = 5;
+        input.E_PTS = 10;
+        input.F_PTS = 10;
 
         //Act, Assert
         assertThrows(Exception.class, () -> licAnalyzer.lic10(input));
