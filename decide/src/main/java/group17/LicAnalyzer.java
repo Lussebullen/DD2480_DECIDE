@@ -60,7 +60,7 @@ public class LicAnalyzer {
         }
 
         if (input.AREA1 < 0) {
-            throw new IllegalArgumentException("AREA1 must be greather than 0");
+            throw new IllegalArgumentException("AREA1 must be greater than 0");
         }
 
         for (int i = 0; i < input.NUMPOINTS - 2; i++) {
