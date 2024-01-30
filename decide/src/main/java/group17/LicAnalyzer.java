@@ -48,6 +48,14 @@ public class LicAnalyzer {
     }
 
     public boolean lic3(InputHandler input) {
+
+        if (input.NUMPOINTS < 3 || input.NUMPOINTS > 100) {
+            throw new IllegalArgumentException("NUMPOINTS must be between 3 (inclusive) and 100 (inclusive)");
+        }
+
+        if (input.AREA1 < 0) {
+            throw new IllegalArgumentException("AREA1 must be greather than 0");
+        }
         return false;
     }
 
