@@ -7,7 +7,9 @@ DECIDE Assignment in the KTH course DD2480.
 
 ## Requirements
 Java (version?)
+
 JDK version
+
 Maven version
 
 ## Build instructions Windows
@@ -38,5 +40,6 @@ If vscode says the maven executable is missing, and requests it, insert the foll
 
 ## Commit convention
 All commits should be performed on the appropriate issue branch
+
 Prefixes: feat/, fix/, doc/, refactor/
  
