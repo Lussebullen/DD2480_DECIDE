@@ -24,7 +24,7 @@ public class App
             licAnalyzer.lic13(input),
             licAnalyzer.lic14(input)
         };
-
+        System.out.println(CMV[9]);
         return CMV;
     }
 
@@ -94,7 +94,7 @@ public class App
 
     public static void main( String[] args )
     {
-        InputHandler input = new InputHandler("");
+        InputHandler input = new InputHandler("./decide/sampleData.json");
         App missileSystem = new App();
         missileSystem.decide(input);
         System.out.println( "Hello World!" );

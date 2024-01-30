@@ -38,6 +38,11 @@ public class LicAnalyzer {
         return false;
     }
 
+    /**
+     *  Checks if a set of three points is separated by C_PTS and D_PTS, and if angle condition is met.
+     *  @returns true, false, or @throws IllegalArgumentException
+     *  @param input.NUMPOINTS,C_PTS,D_PTS,EPSILON,X_COORD,Y_COORD
+    */
     public boolean lic9(InputHandler input) throws IllegalArgumentException {
 
         if(input.NUMPOINTS < 5 || input.NUMPOINTS > 100)
@@ -53,12 +58,12 @@ public class LicAnalyzer {
         for(int i = 0; i < input.NUMPOINTS - (gap1 + gap2); i++)
         {
             x1 = input.X_COORD[i];
-            x2 = input.X_COORD[i+gap1];
-            x3 = input.X_COORD[i+gap2];
+            x2 = input.X_COORD[i+gap1+1];
+            x3 = input.X_COORD[i+gap1+1+gap2+1];
 
             y1 = input.Y_COORD[i];
-            y2 = input.Y_COORD[i+gap1];
-            y3 = input.Y_COORD[i+gap2];
+            y2 = input.Y_COORD[i+gap1+1];
+            y3 = input.Y_COORD[i+gap1+1+gap2+1];
 
             //coinciding first or last point is undefined -> false
             if(x1 == x2 && y1 == y2 || x3 == x2 && y3 == x2)
@@ -68,12 +73,12 @@ public class LicAnalyzer {
                 return true;
 
             x1 = input.X_COORD[i];
-            x2 = input.X_COORD[i+gap2];
-            x3 = input.X_COORD[i+gap1];
+            x2 = input.X_COORD[i+gap2+1];
+            x3 = input.X_COORD[i+gap1+1+gap2+1];
 
             y1 = input.Y_COORD[i];
-            y2 = input.Y_COORD[i+gap2];
-            y3 = input.Y_COORD[i+gap1];  
+            y2 = input.Y_COORD[i+gap2+1];
+            y3 = input.Y_COORD[i+gap1+1+gap2+1];  
             
             angle = geom.calcAngle(x1, y1, x2, y2, x3, y3);
             if(angle < (Math.PI - input.EPSILON) || angle > (Math.PI + input.EPSILON))
