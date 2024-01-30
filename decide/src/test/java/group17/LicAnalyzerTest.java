@@ -90,6 +90,13 @@ public class LicAnalyzerTest {
     }
 
     @Test
+    public void lic3TestInvalidAREA1() {
+        input.AREA1 = -1.0;
+
+        assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic3(input));
+    }
+
+    @Test
     public void lic4Test() {
         assertTrue(true);
     }
