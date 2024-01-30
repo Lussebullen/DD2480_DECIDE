@@ -4,7 +4,36 @@ public class LicAnalyzer {
 
     GeometryUtils geoUtils = new GeometryUtils();
 
+
+    /*
+    * Evaluates if set of two consecutive points greater than LENGTH1 apart exists.
+    *
+    * @param  input  object whose members hold data for the problem; relevant 
+    *                fields for lic0 are: NUMPOINTS, X_COORD, Y_COORD, LENGTH1
+    * @return        true if set exists, false otherwise
+    */
     public boolean lic0(InputHandler input) {
+        if (input.NUMPOINTS < 2 || input.NUMPOINTS > 100) {
+            throw new IllegalArgumentException("Exception thrown from: LIC 0. Reason: NUMPOINTS outside range [2, 100].");
+        } else if (input.LENGTH1 < 0.0) {
+           throw new IllegalArgumentException("Exception thrown from: LIC 0. Reason: LENGTH1 < 0");
+        } else if (input.X_COORD == null || input.Y_COORD == null) {
+            throw new IllegalArgumentException("Exception thrown from: LIC 0. Reason: X_COORD or Y_COORD array points to null!");
+        }
+
+        for (int i = 1; i < input.NUMPOINTS; ++i) {
+            double xCoordinate2 = input.X_COORD[i];
+            double yCoordinate2 = input.Y_COORD[i];
+
+            double xCoordinate1 = input.X_COORD[i - 1];
+            double yCoordinate1 = input.Y_COORD[i - 1];
+
+            double distance = geoUtils.dist(xCoordinate1, yCoordinate1, xCoordinate2, yCoordinate2);
+
+            if (distance > input.LENGTH1) {
+                return true;
+            }
+        }
         return false;
     }
 
