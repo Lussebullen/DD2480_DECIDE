@@ -70,8 +70,13 @@ public class LicAnalyzerTest {
     }
 
     @Test
-    public void lic3Test() {
-        assertTrue(true);
+    public void lic3TestTriangleAreaGreaterThanAREA1() {
+        input.NUMPOINTS = 3;
+        input.X_COORD = new double[]{0.0, 0.0, 1.0};
+        input.Y_COORD = new double[]{1.0, 0.0, 0.0};
+        input.AREA1 = 0.25;
+
+        assertTrue(licAnalyzer.lic3(input));
     }
 
     @Test
