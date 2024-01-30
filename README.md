@@ -16,7 +16,7 @@ Install chocolatey https://docs.chocolatey.org/en-us/choco/setup
 
 Install Maven via chocolatey, ```choco install maven```
 
-To run in command line:
+### To run in command line:
 
 navigate to ```DD2480_DECIDE\decide```
 
@@ -24,7 +24,7 @@ Execute ```mvn compile```
 
 To run tests, execute ```mvn test```
 
-To run in visual studio code:
+### To run in visual studio code:
 
 Install recommended java plugins, including Maven
 
