@@ -285,9 +285,7 @@ public class LicAnalyzer {
 
             boolean point3Found = geoUtils.pointInsideCircle(xCoordinate3, yCoordinate3, radius);
 
-            if (point1Found && point2Found && point3Found) {
-                return true;
-            } 
+            return point1Found && point2Found && point3Found;
 
         }
         return false;
