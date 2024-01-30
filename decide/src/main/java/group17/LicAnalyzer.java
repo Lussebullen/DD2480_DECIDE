@@ -28,9 +28,7 @@ public class LicAnalyzer {
             double xCoordinate1 = input.X_COORD[i - 1];
             double yCoordinate1 = input.Y_COORD[i - 1];
 
-            double dx = Math.pow(xCoordinate2 - xCoordinate1, 2);
-            double dy = Math.pow(yCoordinate2 - yCoordinate1, 2);
-            double distance = Math.sqrt(dx + dy);
+            double distance = geoUtils.dist(xCoordinate1, yCoordinate1, xCoordinate2, yCoordinate2);
 
             if (distance > input.LENGTH1) {
                 return true;
