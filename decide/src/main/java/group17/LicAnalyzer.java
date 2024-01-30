@@ -47,7 +47,33 @@ public class LicAnalyzer {
         return false;
     }
 
+    /**
+     * This function calculates Launch Interceptor Condition (LIC) number 3
+     *  
+     * @param input.NUMPOINTS,AREA1,X_COORD,Y_COORD
+     * @return true if any 3 consecutive points make a triangle with area greater than AREA1
+     */
     public boolean lic3(InputHandler input) {
+
+        if (input.NUMPOINTS < 3 || input.NUMPOINTS > 100) {
+            throw new IllegalArgumentException("NUMPOINTS must be between 3 (inclusive) and 100 (inclusive)");
+        }
+
+        if (input.AREA1 < 0) {
+            throw new IllegalArgumentException("AREA1 must be greater than 0");
+        }
+
+        for (int i = 0; i < input.NUMPOINTS - 2; i++) {
+            double x1 = input.X_COORD[i], y1 = input.Y_COORD[i];
+            double x2 = input.X_COORD[i+1], y2 = input.Y_COORD[i+1];
+            double x3 = input.X_COORD[i+2], y3 = input.Y_COORD[i+2];
+
+            double triangleArea = geoUtils.calcTriangleArea(x1, y1, x2, y2, x3, y3);
+            if (triangleArea > input.AREA1) {
+                return true;
+            }
+        }
+
         return false;
     }
 
