@@ -97,6 +97,13 @@ public class LicAnalyzerTest {
     }
 
     @Test
+    public void lic3TestInvalidNUMPOINTS() {
+        input.NUMPOINTS = 2;
+
+        assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic3(input));
+    }
+
+    @Test
     public void lic4Test() {
         assertTrue(true);
     }
