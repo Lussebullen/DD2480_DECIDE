@@ -94,7 +94,34 @@ public class LicAnalyzer {
         return false;
     }
 
+    /**
+     * This function calculates Launch Interceptor Condition (LIC) number 7
+     *
+     * @param input.NUMPOINTS,LENGTH1,X_COORD,Y_COORD,K_PTS
+     * @return true if the set of two data points separated by input.K_PTS point's distance is greater than LENGTH1
+     */
     public boolean lic7(InputHandler input) {
+
+        if (input.NUMPOINTS < 3 || input.NUMPOINTS > 100) {
+            throw new IllegalArgumentException("NUMPOINTS must be between 3 (inclusive) and 100 (inclusive)");
+        }
+
+        if (input.K_PTS < 1 || input.K_PTS > input.NUMPOINTS-2) {
+            throw new IllegalArgumentException("K_PTS must be between 1 (inclusive) and NUMPOINTS-2 (inclusive)");
+        }
+
+        if (input.LENGTH1 < 0) {
+            throw new IllegalArgumentException("LENGTH1 must be a positive number");
+        }
+
+        for (int i = 0; i < input.NUMPOINTS - input.K_PTS - 1; i++) {
+            double x1 = input.X_COORD[i], y1 = input.Y_COORD[i];
+            double x2 = input.X_COORD[i + input.K_PTS + 1], y2 = input.Y_COORD[i + input.K_PTS + 1];
+
+            if (geoUtils.dist(x1, y1, x2, y2) > input.LENGTH1) {
+                return true;
+            }
+        }
         return false;
     }
 
