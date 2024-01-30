@@ -172,11 +172,27 @@ public class LicAnalyzerTest {
 
     @Test
     public void lic1TestTooFewPoints() {
-        input.NUMPOINTS = 2;
-        input.X_COORD = new double[]{-4.0, 0.0};
-        input.Y_COORD = new double[]{0.0, 0.0};
+        input.NUMPOINTS = 1;
+        input.X_COORD = new double[]{-4.0};
+        input.Y_COORD = new double[]{0.0};
         input.RADIUS1 = 3;
         assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic1(input));
+    }
+
+    @Test
+    public void lic1TestManyPoints() {
+        input.NUMPOINTS = 101;
+        input.RADIUS1 = 3;
+        assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic1(input));
+    }
+
+    @Test
+    public void lic1Test2Points() {
+        input.NUMPOINTS = 2;
+        input.X_COORD = new double[]{-10.0, 0.0};
+        input.Y_COORD = new double[]{0.0, 0.0};
+        input.RADIUS1 = 3;
+        assertFalse(licAnalyzer.lic1(input));
     }
 
     @Test
