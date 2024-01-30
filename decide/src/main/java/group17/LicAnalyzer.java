@@ -62,17 +62,12 @@ public class LicAnalyzer {
             double x2 = input.X_COORD[i+1], y2 = input.Y_COORD[i+1];
             double x3 = input.X_COORD[i+2], y3 = input.Y_COORD[i+2];
 
-            double angle = geoUtils.calcAngle(x1, y1, x2, y2, x3, y3);
-            double hypotenuse = geoUtils.dist(x1, y1, x2, y2);
-            double height = Math.sin(angle) * hypotenuse;
-            double base = geoUtils.dist(x2, y2, x3, y3);
-
-            double triangleArea = height * base / 2;
+            double triangleArea = geoUtils.calcTriangleArea(x1, y1, x2, y2, x3, y3);
             if (triangleArea > input.AREA1) {
                 return true;
             }
         }
-        
+
         return false;
     }
 

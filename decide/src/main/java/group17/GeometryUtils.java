@@ -43,4 +43,14 @@ public class GeometryUtils {
     public double dist(double x1, double y1, double x2, double y2) {
         return Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));
     }
+
+    public double calcTriangleArea(double x1, double y1, double x2, double y2, double x3, double y3) {
+        double angle = calcAngle(x1, y1, x2, y2, x3, y3);
+        double hypotenuse = dist(x1, y1, x2, y2);
+        double height = Math.sin(angle) * hypotenuse;
+        double base = dist(x2, y2, x3, y3);
+
+        double triangleArea = height * base / 2;
+        return triangleArea;
+    }
 }
