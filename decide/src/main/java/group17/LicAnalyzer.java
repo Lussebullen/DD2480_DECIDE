@@ -72,11 +72,11 @@ public class LicAnalyzer {
     public boolean lic7(InputHandler input) {
 
         if (input.NUMPOINTS < 3 || input.NUMPOINTS > 100) {
-            throw new IllegalArgumentException("NUMPOINTS must be between 2 (inclusive) and 100 (inclusive)");
+            throw new IllegalArgumentException("NUMPOINTS must be between 3 (inclusive) and 100 (inclusive)");
         }
 
         if (input.K_PTS < 1 || input.K_PTS > input.NUMPOINTS-2) {
-            throw new IllegalArgumentException("K_PTS must be between 1 (inclusive) and input.NUMPOINTS-2 (inclusive)");
+            throw new IllegalArgumentException("K_PTS must be between 1 (inclusive) and NUMPOINTS-2 (inclusive)");
         }
 
         if (input.LENGTH1 < 0) {
