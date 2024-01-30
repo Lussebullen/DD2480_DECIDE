@@ -252,7 +252,8 @@ public class LicAnalyzer {
     }
 
     /*
-     * Evaluate if circle can hold set of three points seperate by gap1 and gap2 
+     * Evaluate if circle can hold set of three points seperated by gap1 and gap2 
+     * points.
      *
      * @param gap1     Number of intervening points between point 1 and 2.
      * @param gap2     Number of intervening points between point 2 and 3.
