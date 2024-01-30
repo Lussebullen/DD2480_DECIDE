@@ -47,6 +47,12 @@ public class LicAnalyzer {
         return false;
     }
 
+    /**
+     * This function calculates Launch Interceptor Condition (LIC) number 3
+     *  
+     * @param input.NUMPOINTS,AREA1,X_COORD,Y_COORD
+     * @return true if any 3 consecutive points make a triangle with area greater than AREA1
+     */
     public boolean lic3(InputHandler input) {
 
         if (input.NUMPOINTS < 3 || input.NUMPOINTS > 100) {
