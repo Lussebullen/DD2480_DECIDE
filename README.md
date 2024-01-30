@@ -34,7 +34,7 @@ In the bottom left, at the maven tab, open the "Lifecycle" tab
 
 Hover any option of your choice, such as "test", and click the play button to run the corresponding option
 
-If vscode says the maven executable is missing, and requests it, insert the following "C:\ProgramData\chocolatey\lib\maven\apache-maven-3.9.6\bin\mvn" if you used the default install location of Maven from chocolatey
+If vscode says the maven executable is missing, and requests it, insert the following ```C:\ProgramData\chocolatey\lib\maven\apache-maven-3.9.6\bin\mvn``` if you used the default install location of Maven from chocolatey
 
 ## Commit convention
 All commits should be performed on the appropriate issue branch
