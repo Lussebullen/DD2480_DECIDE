@@ -66,4 +66,49 @@ public class GeometryUtils {
         double triangleArea = height * base / 2;
         return triangleArea;
     }
+
+    /** 
+     * Calculates and returns the circumradius of the points (x1,y1), (x2,y2), (x3,y3).
+     * @param x1 X coordinate of first point.
+     * @param y1 Y coordinate of first point.
+     * @param x2 X coordinate of second point.
+     * @param y2 Y coordinate of second point.
+     * @param x3 X coordinate of third point.
+     * @param y3 Y coordinate of third point.
+     * @return double
+     */
+    public double circumRadius(double x1, double y1, double x2, double y2, double x3, double y3) {
+        double a = dist(x1, y1, x2, y2);
+        double b = dist(x2, y2, x3, y3);
+        double c = dist(x3, y3, x1, y1);
+        double s = (a + b + c) / 2;
+        
+        return a*b*c / (4*Math.sqrt(s*(s-a)*(s-b)*(s-c)));
+    }
+
+    /** 
+     * Calculates and returns the radius of the smallest enclosing circle for the points (x1,y1), (x2,y2), (x3,y3).
+     * @param x1 X coordinate of first point.
+     * @param y1 Y coordinate of first point.
+     * @param x2 X coordinate of second point.
+     * @param y2 Y coordinate of second point.
+     * @param x3 X coordinate of third point.
+     * @param y3 Y coordinate of third point.
+     * @return double
+     */
+    public double minimumEnclosingRadius(double x1, double y1, double x2, double y2, double x3, double y3) {
+        double radius = circumRadius(x1, y1, x2, y2, x3, y3);
+        double[] X = new double[] {x1, x2, x3};
+        double[] Y = new double[] {y1, y2, y3};
+        for (int i=0; i<3; i++) {
+            double midX = (X[(i+1) % 3] + X[i]) / 2;
+            double midY = (Y[(i+1) % 3] + Y[i]) / 2;
+            double radius_temp = dist(X[i], Y[i], X[(i+1) % 3], Y[(i+1) % 3]) / 2;
+            // If last point contained, update radius.
+            if (dist(midX, midY, X[(i+2) % 3], X[(i+2) % 3]) <= radius_temp) {
+                radius = radius_temp;
+            }
+        }
+        return radius;
+    }
 }
