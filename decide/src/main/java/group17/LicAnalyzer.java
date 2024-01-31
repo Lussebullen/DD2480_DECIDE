@@ -271,7 +271,31 @@ public class LicAnalyzer {
 
     }
 
+
+    
+    /** 
+     * This function calculates Launch Interceptor Condition (LIC) number 11
+     * 
+     * @param input
+     * @return boolean
+     */
     public boolean lic11(InputHandler input) {
+        int gpts = input.G_PTS;
+        int numpoints = input.NUMPOINTS;
+        double[] X = input.X_COORD;
+
+        if (gpts < 1) {
+            throw new IllegalArgumentException("Exception thrown from: LIC 11. Reason: G_PTS must be greater than 1.");
+        } else if (gpts > numpoints - 2) {
+            throw new IllegalArgumentException("Exception thrown from: LIC 11. Reason: G_PTS must be less than NUMPOINTS - 2.");
+        }
+
+        for (int i = 0; i < numpoints - gpts; i++) {
+            if (X[i + gpts] < X[i]) {
+                return true;
+            }
+        }
+
         return false;
     }
 
