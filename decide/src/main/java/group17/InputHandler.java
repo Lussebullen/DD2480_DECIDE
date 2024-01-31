@@ -37,6 +37,7 @@ public class InputHandler {
     int D_PTS;
     int E_PTS;
     int F_PTS;
+    int G_PTS;
     double LENGTH2;
     double RADIUS2;
     double AREA2;
@@ -66,6 +67,7 @@ public class InputHandler {
         D_PTS = jsonNode.get("D_PTS").asInt();
         E_PTS = jsonNode.get("E_PTS").asInt();
         F_PTS = jsonNode.get("F_PTS").asInt();
+        G_PTS = jsonNode.get("G_PTS").asInt();
         RADIUS2 = jsonNode.get("RADIUS2").asDouble();
         AREA1 = jsonNode.get("AREA1").asDouble();
         AREA2 = jsonNode.get("AREA2").asDouble();
