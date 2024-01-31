@@ -171,6 +171,15 @@ public class LicAnalyzerTest {
     }
 
     @Test
+    public void lic1TestUncontainedZeroRadius2() {
+        input.NUMPOINTS = 3;
+        input.X_COORD = new double[]{1.0, 1.0, 1.0};
+        input.Y_COORD = new double[]{1.0, 0.0, 1.0};
+        input.RADIUS1 = 0;
+        assertTrue(licAnalyzer.lic1(input));
+    }
+
+    @Test
     public void lic1TestTooFewPoints() {
         input.NUMPOINTS = 1;
         input.X_COORD = new double[]{-4.0};

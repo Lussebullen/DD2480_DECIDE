@@ -82,6 +82,11 @@ public class GeometryUtils {
         double b = dist(x2, y2, x3, y3);
         double c = dist(x3, y3, x1, y1);
         double s = (a + b + c) / 2;
+
+        if (s <= 0) {
+            // Degenerate triangle, 3 coinciding points.
+            return 0.0;
+        }
         
         return a*b*c / (4*Math.sqrt(s*(s-a)*(s-b)*(s-c)));
     }
@@ -105,7 +110,7 @@ public class GeometryUtils {
             double midY = (Y[(i+1) % 3] + Y[i]) / 2;
             double radius_temp = dist(X[i], Y[i], X[(i+1) % 3], Y[(i+1) % 3]) / 2;
             // If last point contained, update radius.
-            if (dist(midX, midY, X[(i+2) % 3], X[(i+2) % 3]) <= radius_temp) {
+            if (dist(midX, midY, X[(i+2) % 3], Y[(i+2) % 3]) <= radius_temp) {
                 radius = radius_temp;
             }
         }
