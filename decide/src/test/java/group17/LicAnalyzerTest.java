@@ -267,9 +267,48 @@ public class LicAnalyzerTest {
     }
 
     @Test
-    public void lic10Test() {
-        assertTrue(true);
+    public void lic10IsTrueIfThreePointsSeperatedByTwoAndFourPointsExistsWithAreaGreaterThan49() {
+        //Arrange
+        input.X_COORD = new double[]{1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 11.0};
+        input.Y_COORD = new double[]{1.0, 0.0, 0.0, 11.0, 0.0, 0.0, 0.0, 0.0, 1.0};
+
+        input.NUMPOINTS = input.X_COORD.length;
+        input.E_PTS = 2;
+        input.F_PTS = 4;
+        input.AREA1 = 49.0;
+
+        //Act
+        boolean signal = licAnalyzer.lic10(input);
+
+        // Assert
+        assertTrue(signal);
     }
+
+    @Test
+    public void lic10ThrowsExceptionOnInvalidF_PTS() {
+        //Arrange
+        input.F_PTS = -1;
+
+        //Act, Assert
+        assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic10(input));
+    }
+    @Test
+    public void lic10ThrowsExceptionOnInvalidE_PTS() {
+        //Arrange
+        input.E_PTS = -1;
+
+        //Act, Assert
+        assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic10(input));
+    }
+    @Test
+    public void lic10ThrowsExceptionOnInvalidNUMPOINTS() {
+        //Arrange
+        input.NUMPOINTS = 5;
+        input.E_PTS = 10;
+        input.F_PTS = 10;
+
+        //Act, Assert
+        assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic10(input));
 
     @Test
     public void lic11Test() {
