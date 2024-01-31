@@ -4,7 +4,7 @@ import group17.InputHandler.CONNECTORS;
 
 public class App 
 {
-    private boolean[] evaluateLics(final InputHandler input) throws Exception {
+    private boolean[] evaluateLics(final InputHandler input) {
         LicAnalyzer licAnalyzer = new LicAnalyzer();
         final boolean[] CMV = {
             licAnalyzer.lic0(input),
@@ -73,7 +73,7 @@ public class App
         return FUV;
     }
 
-    public void decide(final InputHandler input) throws Exception {
+    public void decide(final InputHandler input) {
         System.out.println( "Entered DECIDE" );
 
         final boolean[]   CMV = evaluateLics(input);
