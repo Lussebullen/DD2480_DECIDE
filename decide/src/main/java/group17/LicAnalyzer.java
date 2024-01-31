@@ -39,7 +39,7 @@ public class LicAnalyzer {
     }
     
     /** 
-     * This function calculates Launch Interceptor Condition (LIC) number 2
+     * This function calculates Launch Interceptor Condition (LIC) number 1
      * 
      * @param input
      * @return true if at least one set of three consecutive data points that cannot all be contained within or on a circle of radius RADIUS1 exists.
@@ -168,7 +168,39 @@ public class LicAnalyzer {
         return false;
     }
 
+    
+    
+    /** 
+     * This function calculates Launch Interceptor Condition (LIC) number 6.
+     * @param input
+     * @return boolean
+     */
     public boolean lic6(InputHandler input) {
+        int n_pts = input.N_PTS;
+        double dist = input.DIST;
+        int n = input.NUMPOINTS;
+        double[] X = input.X_COORD;
+        double[] Y = input.Y_COORD;
+
+        if (n < 3) {
+            return false; //?? should it be handled like this?
+        } else if (dist < 0) {
+            throw new IllegalArgumentException("Exception thrown from: LIC 6. DIST must be greater than or equal to 0.");
+        } else if (n_pts < 3) {
+            throw new IllegalArgumentException("Exception thrown from: LIC 6. N_PTS must be greater than or equal to 3.");
+        } else if (n < n_pts) {
+            throw new IllegalArgumentException("Exception thrown from: LIC 6. NUMPOINTS must be greater than or equal to N_PTS.");
+        }
+
+        for (int i = 0; i <= n - n_pts; i++) {
+            for (int j = i + 1; j < i + n_pts - 1; j++) {
+                // Strictly greater to satisfy condition.
+                if (geoUtils.distanceFromPointToLine(X[i],Y[i],X[i+n_pts-1],Y[i+n_pts-1],X[j],Y[j]) > dist) {
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
 
