@@ -290,6 +290,22 @@ public class LicAnalyzer {
                 return true;
             }
 
+            // Only middle point is affected by gap order, check reverse if worthwhile.
+            // I.e. {point1 ----- points2 - points3} vs {point1 - points2 ----- points3}
+            if (!point2Found && point1Found && point3Found) {
+                vertex2 = i - gap2 - 1;
+
+                xCoordinate2 = input.X_COORD[vertex2];
+                yCoordinate2 = input.Y_COORD[vertex2];
+
+                point2Found = geoUtils.pointInsideCircle(xCoordinate2, yCoordinate2, radius);
+
+                if (point1Found && point2Found && point3Found) {
+                    return true;
+                }
+            }
+
+
         }
         return false;
     }
@@ -314,17 +330,10 @@ public class LicAnalyzer {
 
         boolean wholeSetWithinRadius1 = CircleContainsSetOfThreePoints(input.A_PTS, input.B_PTS, 
                                                                        input.RADIUS1, input);
-        if (!wholeSetWithinRadius1 && (input.A_PTS != input.B_PTS) ) {
-            wholeSetWithinRadius1 = CircleContainsSetOfThreePoints(input.B_PTS, input.A_PTS, 
-                                                                   input.RADIUS1, input);
-        }
 
         boolean wholeSetWithinRadius2 = CircleContainsSetOfThreePoints(input.A_PTS, input.B_PTS, 
                                                                        input.RADIUS2, input);
-        if (!wholeSetWithinRadius2 && (input.A_PTS != input.B_PTS) ) {
-            wholeSetWithinRadius2 = CircleContainsSetOfThreePoints(input.B_PTS, input.A_PTS, 
-                                                                   input.RADIUS2, input);
-        }
+
         return !wholeSetWithinRadius1 && wholeSetWithinRadius2;
     }
 
