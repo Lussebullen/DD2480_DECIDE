@@ -1,4 +1,5 @@
 package group17;
+import java.lang.Math;
 
 public class LicAnalyzer {
 
@@ -36,8 +37,39 @@ public class LicAnalyzer {
         }
         return false;
     }
-
+    
+    /** 
+     * This function calculates Launch Interceptor Condition (LIC) number 2
+     * 
+     * @param input
+     * @return true if at least one set of three consecutive data points that cannot all be contained within or on a circle of radius RADIUS1 exists.
+     */
     public boolean lic1(InputHandler input) {
+        double threshold_radius = input.RADIUS1;
+        // Number of sets to check enclosing radius for.
+        int n = input.NUMPOINTS - 2;
+        double[] X = input.X_COORD;
+        double[] Y = input.Y_COORD;
+        
+        if (input.NUMPOINTS < 2 || input.NUMPOINTS > 100) {
+            throw new IllegalArgumentException("Exception thrown from: LIC 1. Reason: NUMPOINTS outside range [2, 100].");
+        }
+        if (threshold_radius < 0) {
+            throw new IllegalArgumentException("Exception thrown from: LIC 1. Reason: RADIUS1 cannot be strictly less than 0.");
+        }
+        if (input.NUMPOINTS == 2) {
+            // No set of 3 points exists, so criterion cannot be fulfilled.
+            return false;
+        }
+
+        for (int i = 0; i < n; i++) {
+            double radius = geoUtils.minimumEnclosingRadius(X[i],Y[i],X[i+1],Y[i+1],X[i+2],Y[i+2]);
+            if (radius > threshold_radius) {
+                // The three points cannot fit within threshold radius.
+                return true;
+            }
+        }
+
         return false;
     }
 
