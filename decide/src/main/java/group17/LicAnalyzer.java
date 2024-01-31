@@ -344,7 +344,7 @@ public class LicAnalyzer {
 
     /*
      * Evaluates existence of a set of three points, where point 1 and 2 are 
-     * seperated by A_PTS and point 2 and 3 seperated by B_PTS, that can 
+     * seperated by either A_PTS or B_PTS and point 2 and 3 seperated by the other, that can 
      * be contained in a circle with radius RADIUS2 but not inside a circle with RADIUS1. 
      *
      * @param  input  object whose members hold data for the problem.
