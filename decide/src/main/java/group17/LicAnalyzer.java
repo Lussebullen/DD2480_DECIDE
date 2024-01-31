@@ -332,7 +332,7 @@ public class LicAnalyzer {
 
                 point2Found = geoUtils.pointInsideCircle(xCoordinate2, yCoordinate2, radius);
 
-                if (point1Found && point2Found && point3Found) {
+                if (point2Found) {
                     return true;
                 }
             }
