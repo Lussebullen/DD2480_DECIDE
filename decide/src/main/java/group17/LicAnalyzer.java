@@ -266,12 +266,8 @@ public class LicAnalyzer {
             throw new IllegalArgumentException("Exception thrown from: LIC 10. Reason: NUMPOINTS < E_PTS + F_PTS + 3.");
         }
 
-        boolean pointsFound = helperLic10ThreePointsSeperatedBy(input.E_PTS, input.F_PTS, input);
-        if (!pointsFound) {
-            // Points might exist but seperated in opposite order to call above
-            pointsFound = helperLic10ThreePointsSeperatedBy(input.F_PTS, input.E_PTS, input);
-        }
-        return pointsFound;
+        return helperLic10ThreePointsSeperatedBy(input.F_PTS, input.E_PTS, input)
+            || helperLic10ThreePointsSeperatedBy(input.E_PTS, input.F_PTS, input);
 
     }
 
