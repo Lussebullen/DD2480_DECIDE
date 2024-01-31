@@ -204,6 +204,35 @@ public class LicAnalyzer {
     }
 
     public boolean lic8(InputHandler input) {
+
+        double[] X = input.X_COORD;
+        double[] Y = input.Y_COORD;
+        int A = input.A_PTS;
+        int B = input.B_PTS;
+        
+        if (input.NUMPOINTS < 2 || input.NUMPOINTS > 100) {
+            throw new IllegalArgumentException("NUMPOINTS must be between 2 and 100.");
+        }
+        if (input.RADIUS1 < 0) {
+            throw new IllegalArgumentException("RADIUS1 cannot be lower than 0.");
+        }
+        if (input.NUMPOINTS < 5) {
+            return false;
+        }
+        if (A < 1) {
+            throw new IllegalArgumentException("A_PTS must be greater than or equal to 1.");
+        }
+        if (B < 1) {
+            throw new IllegalArgumentException("A_PTS must be greater than or equal to 1.");
+        }
+
+        for (int i = 0; i < input.NUMPOINTS - A - B - 2; i++) {
+            double radius = geoUtils.minimumEnclosingRadius(X[i],Y[i],X[i+1+A],Y[i+1+A],X[i+2+A+B],Y[i+2+A+B]);
+            if (radius > input.RADIUS1) {
+                return true;
+            }
+        }
+
         return false;
     }
 
