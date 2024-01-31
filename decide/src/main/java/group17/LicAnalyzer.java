@@ -203,6 +203,15 @@ public class LicAnalyzer {
         return false;
     }
 
+    /**
+     * This function calculates Launch Interceptor Condition (LIC) number 8
+     * Utilizes helper methods in GeometryUtils.java to calculate the smallest possible radius between 3 points.
+     * The first two points are separated by A_PTS.
+     * The last two points are separated by B_PTS.
+     *
+     * @param input.NUMPOINTS,RADIUS1,X_COORD,Y_COORD,A_PTS,B_PTS
+     * @return true if three points, separated by A_PTS and B_PTS cannot be contained on or within a circle of radius RADIUS1
+     */
     public boolean lic8(InputHandler input) {
 
         double[] X = input.X_COORD;
