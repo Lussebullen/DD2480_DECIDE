@@ -166,7 +166,6 @@ public class LicAnalyzer {
             throw new IllegalArgumentException("Exception thrown from: LIC 9. Reason: C_PTS < 1 or D_PTS < 1.");
         else if(input.C_PTS + input.D_PTS > input.NUMPOINTS - 3)
             throw new IllegalArgumentException("Exception thrown from: LIC 9. Reason: C_PTS + D_PTS > NUMPOINTS - 3");
-        GeometryUtils geom = new GeometryUtils();
         double x1,x2,x3,y1,y2,y3 = 0;
         int gap1 = input.C_PTS;
         int gap2 = input.D_PTS;
@@ -181,9 +180,9 @@ public class LicAnalyzer {
             y3 = input.Y_COORD[i+gap1+1+gap2+1];
 
             //coinciding first or last point is undefined -> false
-            if(x1 == x2 && y1 == y2 || x3 == x2 && y3 == x2)
+            if(geoUtils.sameCoordinate(x1, x2) && geoUtils.sameCoordinate(y1, y2) || geoUtils.sameCoordinate(x3, x2) && geoUtils.sameCoordinate(y3, y2))
                 return false;
-            double angle = geom.calcAngle(x1, y1, x2, y2, x3, y3);
+            double angle = geoUtils.calcAngle(x1, y1, x2, y2, x3, y3);
             if(angle < (Math.PI - input.EPSILON) || angle > (Math.PI + input.EPSILON))
                 return true;
 

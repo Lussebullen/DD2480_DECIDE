@@ -44,6 +44,17 @@ public class GeometryUtils {
         return Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));
     }
 
+    /*
+     * A equality comparator of two doubles using a threshold
+     * @param a, is the first double
+     * @param b, is the second double
+     * @return true, if equal, false otherwise
+     */ 
+    public boolean sameCoordinate(double a, double b) {
+        final double epsilon = 1e-9;    // The acceptable threeshold
+        return Math.abs(a - b) < epsilon;
+    }
+
      /**
      * Calculates the area of the triangle between the points (x1, y1), (x2, y2) and (x3, y3).
      * The distance between the first two points is treated as the length of the hypotenuse.
