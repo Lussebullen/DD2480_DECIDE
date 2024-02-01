@@ -76,7 +76,7 @@ I implemented LIC3 and LIC8, as well as accompanying unit tests. I performed a l
 Implemented LIC 4, 9 and 14. Implemented corresponding unit tests for the relevant LICs. Helped with pull request code reviews.
 
 - ##### [Omar Askar Vergara](https://github.com/Omar-AV)
-Implemented the decide function in `App.java`, LIC 0, 5, 10, 13 and corresponding unit tests for the LICs. Performed pull request reviews. Worked on main cases for decide.
+Implemented the decide function in `App.java`, LIC 0, 5, 10, 13 and corresponding unit tests for the LICs. Performed pull request reviews. Worked on 3 main cases for decide.
 
 - ##### [Mathias Duedahl](https://github.com/Lussebullen)
 Implemented LIC 1, 6, 11 and corresponding unit tests for the LICs. Performed pull request reviews early in the project. Initially I took part in setting up work structure with suggested skeleton code framework and Kanban board for delegating work. Contributed to setting up local build and testing using Maven and Make.
