@@ -238,7 +238,7 @@ public class LicAnalyzerTest {
 
     @Test
     public void lic2TestInvalidNUMPOINTS() {
-        input.NUMPOINTS = 2;
+        input.NUMPOINTS = 1;
         input.X_COORD = new double[]{0.0, 0.0};
         input.Y_COORD = new double[]{0.0, 0.0};
         input.EPSILON = Math.PI / 4;
