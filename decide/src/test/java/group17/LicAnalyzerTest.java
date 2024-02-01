@@ -4,10 +4,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 import java.lang.Exception;
 
@@ -285,8 +288,58 @@ public class LicAnalyzerTest {
 ///////////////////////////// Lic 4 /////////////////////////////
 
     @Test
-    public void lic4Test() {
-        assertTrue(true);
+    public void lic4TestQptsDoNotCover() {
+        input.Q_PTS = 3;
+        input.QUADS = 2;
+        input.NUMPOINTS = 4;
+        input.X_COORD = new double[]{0, 2, -4, 1};
+        input.Y_COORD = new double[]{1, 3, -5, 4};
+        assertFalse(licAnalyzer.lic4(input));
+    }
+    @Test
+    public void lic4TestQptsDoCover() {
+        input.Q_PTS = 3;
+        input.QUADS = 2;
+        input.NUMPOINTS = 4;
+        input.X_COORD = new double[]{0, -2, -4, 1};
+        input.Y_COORD = new double[]{1, 3, -5, 4};
+        assertTrue(licAnalyzer.lic4(input));
+    }
+    @Test
+    public void lic4TestQptsEqualNumPoints() {
+        input.Q_PTS = 4;
+        input.QUADS = 3;
+        input.NUMPOINTS = 4;
+        input.X_COORD = new double[]{0, -2, -4, 1};
+        input.Y_COORD = new double[]{1, 3, -5, -4};
+        assertTrue(licAnalyzer.lic4(input));
+    }
+    @Test
+    public void lic4TestQuadsHigerOrEqualThanQptsCoverage() {
+        input.Q_PTS = 3;
+        input.QUADS = 3;
+        input.NUMPOINTS = 4;
+        input.X_COORD = new double[]{0, -2, -4, 1};
+        input.Y_COORD = new double[]{1, 3, -5, 4};
+        assertFalse(licAnalyzer.lic4(input));
+    }
+    @Test
+    public void lic4TestInvalidInputQpts() {
+        input.Q_PTS = 1;
+        input.QUADS = 3;
+        input.NUMPOINTS = 4;
+        input.X_COORD = new double[]{0, -2, -4, 1};
+        input.Y_COORD = new double[]{1, 3, -5, 4};
+        assertThrows(IllegalArgumentException.class, () ->  licAnalyzer.lic4(input));
+    }
+    @Test
+    public void lic4TestInvalidInputQuads() {
+        input.Q_PTS = 3;
+        input.QUADS = 4;
+        input.NUMPOINTS = 4;
+        input.X_COORD = new double[]{0, -2, -4, 1};
+        input.Y_COORD = new double[]{1, 3, -5, 4};
+        assertThrows(IllegalArgumentException.class, () ->  licAnalyzer.lic4(input));
     }
 
 ///////////////////////////// Lic 5 /////////////////////////////
