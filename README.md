@@ -78,6 +78,9 @@ Implemented LIC 4, 9 and 14. Implemented corresponding unit tests for the releva
 - ##### [Omar Askar Vergara](https://github.com/Omar-AV)
 Implemented the decide function in `App.java`, LIC 0, 5, 10, 13 and corresponding unit tests for the LICs. Performed pull request reviews.
 
+- ##### [Mathias Duedahl](https://github.com/Lussebullen)
+Implemented LIC 1, 6, 11 and corresponding unit tests for the LICs. Performed pull request reviews early in the project. Initially I took part in setting up work structure with suggested skeleton code framework and Kanban board for delegating work.
+
 ## Remarkable Achievement
 ---
 We are proud that we have set up a GitHub Actions workflow with automated unit testing. Each. It has greatly contributed in continuous integration by automatically catch unforseen errors and bugs that gets introduced each pull request. 
