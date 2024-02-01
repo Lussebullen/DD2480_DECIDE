@@ -231,6 +231,9 @@ public class LicAnalyzer {
         if (B < 1) {
             throw new IllegalArgumentException("A_PTS must be greater than or equal to 1.");
         }
+        if (A + B > (input.NUMPOINTS - 3)) {
+            throw new IllegalArgumentException("A_PTS + B_PTS must be less than or equal to NUMPOINTS - 3.");
+        }
         if (input.NUMPOINTS < 5) {
             return false;
         }
