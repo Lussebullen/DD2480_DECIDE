@@ -284,14 +284,16 @@ public class LicAnalyzer {
         int numpoints = input.NUMPOINTS;
         double[] X = input.X_COORD;
 
-        if (gpts < 1) {
+        if (input.NUMPOINTS < 2 || input.NUMPOINTS > 100) {
+            throw new IllegalArgumentException("Exception thrown from: LIC 11. Reason: NUMPOINTS must be between 2 (inclusive) and 100 (inclusive)");
+        } else if (gpts < 1) {
             throw new IllegalArgumentException("Exception thrown from: LIC 11. Reason: G_PTS must be greater than 1.");
         } else if (gpts > numpoints - 2) {
             throw new IllegalArgumentException("Exception thrown from: LIC 11. Reason: G_PTS must be less than NUMPOINTS - 2.");
         }
 
-        for (int i = 0; i < numpoints - gpts; i++) {
-            if (X[i + gpts] < X[i]) {
+        for (int i = 0; i < numpoints - gpts - 1; i++) {
+            if (X[i + gpts + 1] < X[i]) {
                 return true;
             }
         }

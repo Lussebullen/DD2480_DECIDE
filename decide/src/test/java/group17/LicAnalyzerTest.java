@@ -528,6 +528,28 @@ public class LicAnalyzerTest {
     }
 
     @Test
+    public void lic11BoundNeg() {
+
+        input.NUMPOINTS = 4;
+        input.G_PTS = 2;
+        input.X_COORD = new double[]{1.0, 2.0, 3.0, 4.0};
+        input.Y_COORD = new double[]{0.0, 0.0, 0.0, 0.0};
+
+        assertFalse(licAnalyzer.lic11(input));
+    }
+
+    @Test
+    public void lic11BoundPos() {
+
+        input.NUMPOINTS = 4;
+        input.G_PTS = 2;
+        input.X_COORD = new double[]{1.0, 2.0, 3.0, 0.0};
+        input.Y_COORD = new double[]{0.0, 0.0, 0.0, 0.0};
+
+        assertTrue(licAnalyzer.lic11(input));
+    }
+
+    @Test
     public void lic11GptsLessThan1() {
         input.G_PTS = 0;
 
@@ -538,6 +560,14 @@ public class LicAnalyzerTest {
     public void lic11GptsBiggerThanNumpointsMinus2() {
         input.NUMPOINTS = 5;
         input.G_PTS = 4;
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic11(input));
+    }
+
+    @Test
+    public void lic11NumpointsLessThan2() {
+        input.NUMPOINTS = 1;
+        input.G_PTS = 1;
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic11(input));
     }
