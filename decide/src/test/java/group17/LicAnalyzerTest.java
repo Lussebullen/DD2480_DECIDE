@@ -548,11 +548,42 @@ public class LicAnalyzerTest {
 ///////////////////////////// Lic 12 /////////////////////////////
 
     @Test
-    public void lic12Test() {
-        assertTrue(true);
+    public void lic12LENGTH1LessThanDistAndLENGTH2GreaterThanDist() {
+        input.NUMPOINTS = 3;
+        input.X_COORD = new double[]{0.0, 0.0, 1.0};
+        input.Y_COORD = new double[]{0.0, 0.0, 1.0};
+        input.K_PTS= 1;
+        input.LENGTH1 = 1;
+        input.LENGTH2 = 3;
+
+        assertTrue(licAnalyzer.lic12(input));
     }
 
 ///////////////////////////// Lic 13 /////////////////////////////
+
+    @Test
+    public void lic12LENGTH1LessThanDistAndLENGTH2NotGreaterThanDist() {
+        input.NUMPOINTS = 3;
+        input.X_COORD = new double[]{0.0, 3.0, 1.0};
+        input.Y_COORD = new double[]{0.0, 1.0, 1.0};
+        input.K_PTS= 1;
+        input.LENGTH1 = 1;
+
+        assertFalse(licAnalyzer.lic12(input));
+    }
+
+    @Test
+    public void lic12InvalidLENGTH2() {
+        input.NUMPOINTS = 3;
+        input.X_COORD = new double[]{0.0, 3.0, 1.0};
+        input.Y_COORD = new double[]{0.0, 1.0, 1.0};
+        input.K_PTS= 1;
+        input.LENGTH1 = 1;
+        input.LENGTH2 = -1;
+
+        assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic12(input));
+    }
+
 
     @Test
     public void lic13Test() {

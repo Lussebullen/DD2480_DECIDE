@@ -357,8 +357,51 @@ public class LicAnalyzer {
         return false;
     }
 
+    /**
+     * This function calculates Launch Interceptor Condition (LIC) number 12
+     *
+     * @param input.NUMPOINTS,LENGTH1,LENGTH2,X_COORD,Y_COORD,K_PTS
+     * @return true if there are at least two sets of two data points separated by input.K_PTS data points which distance is greater than LENGTH1 and less than LENGTH2 respectively
+     */
     public boolean lic12(InputHandler input) {
-        return false;
+
+        if (input.NUMPOINTS < 2 || input.NUMPOINTS > 100) {
+            throw new IllegalArgumentException("NUMPOINTS must be inside the range [2, 100]");
+        }
+
+        if (input.NUMPOINTS == 2) {
+            return false;
+        }
+
+        if (input.K_PTS < 1 || input.K_PTS > input.NUMPOINTS-2) {
+            throw new IllegalArgumentException("K_PTS must be between 1 (inclusive) and NUMPOINTS-2 (inclusive)");
+        }
+
+        if (input.LENGTH1 < 0) {
+            throw new IllegalArgumentException("LENGTH1 must be a positive number");
+        }
+
+        if (input.LENGTH2 < 0) {
+            throw new IllegalArgumentException("LENGTH2 must be a positive number");
+        }
+
+        boolean distGreaterThanLENGTH1 = false;
+        boolean distLessThanLENGTH2 = false;
+
+        for (int i = 0; i < input.NUMPOINTS - input.K_PTS - 1; i++) {
+            double x1 = input.X_COORD[i], y1 = input.Y_COORD[i];
+            double x2 = input.X_COORD[i + input.K_PTS + 1], y2 = input.Y_COORD[i + input.K_PTS + 1];
+
+            if (geoUtils.dist(x1, y1, x2, y2) > input.LENGTH1) {
+                distGreaterThanLENGTH1 = true;
+            }
+
+            if (geoUtils.dist(x1 , y1, x2, y2) < input.LENGTH2) {
+                distLessThanLENGTH2 = true;
+            }
+        }
+
+        return distGreaterThanLENGTH1 && distLessThanLENGTH2;
     }
 
     public boolean lic13(InputHandler input) {
