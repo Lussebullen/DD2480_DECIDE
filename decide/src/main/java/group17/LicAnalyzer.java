@@ -194,7 +194,7 @@ public class LicAnalyzer {
             y2 = input.Y_COORD[i+gap2+1];
             y3 = input.Y_COORD[i+gap1+1+gap2+1];  
             
-            angle = geom.calcAngle(x1, y1, x2, y2, x3, y3);
+            angle = geoUtils.calcAngle(x1, y1, x2, y2, x3, y3);
             if(angle < (Math.PI - input.EPSILON) || angle > (Math.PI + input.EPSILON))
                 return true;
         }
