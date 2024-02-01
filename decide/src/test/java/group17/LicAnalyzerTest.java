@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -784,12 +786,53 @@ public void lic8TestB_PTSTooSmall() {
 ///////////////////////////// Lic 9 /////////////////////////////
 
     @Test
-    public void lic9Test() {
-        assertTrue(true);
+    public void lic9TestAngleBiggerOrSmaller() {
+        input.D_PTS = 1;
+        input.C_PTS = 1;
+        input.NUMPOINTS = 5;
+        input.EPSILON = 1;
+
+        //26degree/0.451rad angle
+        input.X_COORD = new double[]{5, 0, 0, 0, 5};
+        input.Y_COORD = new double[]{0, 0, 0, 0, 2.453}; 
+        assertTrue(licAnalyzer.lic9(input));
+    }
+    @Test
+    public void lic9TestCoincidingPoints() {
+        input.D_PTS = 1;
+        input.C_PTS = 1;
+        input.NUMPOINTS = 5;
+        input.EPSILON = 1;
+
+        input.X_COORD = new double[]{0, 0, 0, 0, 0};
+        input.Y_COORD = new double[]{0, 0, 0, 0, 0}; 
+        assertFalse(licAnalyzer.lic9(input));
+    }
+    @Test
+    public void lic9TestInvalidNumpoints() {
+        input.D_PTS = 1;
+        input.C_PTS = 1;
+        input.NUMPOINTS = 3;
+        input.EPSILON = 1;
+
+        input.X_COORD = new double[]{0, 0, 0};
+        input.Y_COORD = new double[]{0, 0, 0}; 
+        assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic9(input));
+    }
+    @Test
+    public void lic9TestInvalidCpts() {
+        input.D_PTS = 1;
+        input.C_PTS = 0;
+        input.NUMPOINTS = 5;
+        input.EPSILON = 1;
+
+        input.X_COORD = new double[]{0, 0, 0, 0, 0};
+        input.Y_COORD = new double[]{0, 0, 0, 0, 0}; 
+        assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic9(input));
     }
 
-///////////////////////////// Lic 10 /////////////////////////////
-
+    ///////////////////////////// Lic 10 /////////////////////////////
+    
     @Test
     public void lic10IsTrueIfThreePointsSeperatedByTwoAndFourPointsExistsWithAreaGreaterThan49() {
         //Arrange

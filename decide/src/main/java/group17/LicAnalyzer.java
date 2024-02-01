@@ -368,7 +368,51 @@ public class LicAnalyzer {
         return false;
     }
 
-    public boolean lic9(InputHandler input) {
+    /**
+     *  Checks if a set of three points is separated by C_PTS and D_PTS, and if angle condition is met.
+     *  @returns true, false, or @throws IllegalArgumentException
+     *  @param input.NUMPOINTS,C_PTS,D_PTS,EPSILON,X_COORD,Y_COORD
+    */
+    public boolean lic9(InputHandler input) throws IllegalArgumentException {
+
+        if(input.NUMPOINTS < 5 || input.NUMPOINTS > 100)
+            throw new IllegalArgumentException("Exception thrown from: LIC 9. Reason: NUMPOINTS < 5 or NUMPOINTS > 100.");
+        else if(input.C_PTS < 1 || input.D_PTS < 1 )
+            throw new IllegalArgumentException("Exception thrown from: LIC 9. Reason: C_PTS < 1 or D_PTS < 1.");
+        else if(input.C_PTS + input.D_PTS > input.NUMPOINTS - 3)
+            throw new IllegalArgumentException("Exception thrown from: LIC 9. Reason: C_PTS + D_PTS > NUMPOINTS - 3");
+        double x1,x2,x3,y1,y2,y3 = 0;
+        int gap1 = input.C_PTS;
+        int gap2 = input.D_PTS;
+        for(int i = 0; i < input.NUMPOINTS - (gap1 + gap2); i++)
+        {
+            x1 = input.X_COORD[i];
+            x2 = input.X_COORD[i+gap1+1];
+            x3 = input.X_COORD[i+gap1+1+gap2+1];
+
+            y1 = input.Y_COORD[i];
+            y2 = input.Y_COORD[i+gap1+1];
+            y3 = input.Y_COORD[i+gap1+1+gap2+1];
+
+            //coinciding first or last point is undefined -> false
+            if(geoUtils.sameCoordinate(x1, x2) && geoUtils.sameCoordinate(y1, y2) || geoUtils.sameCoordinate(x3, x2) && geoUtils.sameCoordinate(y3, y2))
+                return false;
+            double angle = geoUtils.calcAngle(x1, y1, x2, y2, x3, y3);
+            if(angle < (Math.PI - input.EPSILON) || angle > (Math.PI + input.EPSILON))
+                return true;
+
+            x1 = input.X_COORD[i];
+            x2 = input.X_COORD[i+gap2+1];
+            x3 = input.X_COORD[i+gap1+1+gap2+1];
+
+            y1 = input.Y_COORD[i];
+            y2 = input.Y_COORD[i+gap2+1];
+            y3 = input.Y_COORD[i+gap1+1+gap2+1];  
+            
+            angle = geoUtils.calcAngle(x1, y1, x2, y2, x3, y3);
+            if(angle < (Math.PI - input.EPSILON) || angle > (Math.PI + input.EPSILON))
+                return true;
+        }
         return false;
     }
 
