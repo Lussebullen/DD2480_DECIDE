@@ -550,6 +550,14 @@ public class LicAnalyzerTest {
     }
 
     @Test
+    public void lic11Numpoints2() {
+
+        input.NUMPOINTS = 2;
+
+        assertFalse(licAnalyzer.lic11(input));
+    }
+
+    @Test
     public void lic11GptsLessThan1() {
         input.G_PTS = 0;
 
