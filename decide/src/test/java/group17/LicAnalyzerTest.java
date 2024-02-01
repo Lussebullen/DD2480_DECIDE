@@ -241,7 +241,7 @@ public class LicAnalyzerTest {
 
     @Test
     public void lic2TestInvalidNUMPOINTS() {
-        input.NUMPOINTS = 2;
+        input.NUMPOINTS = 1;
         input.X_COORD = new double[]{0.0, 0.0};
         input.Y_COORD = new double[]{0.0, 0.0};
         input.EPSILON = Math.PI / 4;
@@ -416,8 +416,158 @@ public class LicAnalyzerTest {
 ///////////////////////////// Lic 6 /////////////////////////////
 
     @Test
-    public void lic6Test() {
-        assertTrue(true);
+    public void lic6PointsWithinDist() {
+        input.NUMPOINTS = 4;
+        input.X_COORD = new double[]{0.0, 1.0, 2.0, 3.0};
+        input.Y_COORD = new double[]{1.0, 0.0, 2.0, 1.0};
+        input.N_PTS = 3;
+        input.DIST = 1.5;
+
+        assertFalse(licAnalyzer.lic6(input));
+    }
+
+    @Test
+    public void lic6Dist0PointsOnLine() {
+        input.NUMPOINTS = 4;
+        input.X_COORD = new double[]{0.0, 0.0, 4.0, 8.0};
+        input.Y_COORD = new double[]{-1.0, 2.0, 0.0, 2.0};
+        input.N_PTS = 3;
+        input.DIST = 0;
+ 
+        assertTrue(licAnalyzer.lic6(input));
+    }
+
+    @Test
+    public void lic6PointsOutsideDist() {
+        input.NUMPOINTS = 4;
+        input.X_COORD = new double[]{0.0, 1.0, 2.0, 3.0};
+        input.Y_COORD = new double[]{1.0, 0.0, 2.0, 1.0};
+        input.N_PTS = 3;
+        input.DIST = 1.3;
+
+        assertTrue(licAnalyzer.lic6(input));
+    }
+
+    @Test
+    public void lic6PointsExactDist() {
+        input.NUMPOINTS = 4;
+        input.X_COORD = new double[]{0.0, 1.0, 2.0, 3.0};
+        input.Y_COORD = new double[]{0.0, 1.0, 2.0, 1.0};
+        input.N_PTS = 3;
+        input.DIST = 1;
+
+        assertFalse(licAnalyzer.lic6(input));
+    }
+
+    @Test
+    public void lic6CoincideOutsideDist() {
+        input.NUMPOINTS = 4;
+        input.X_COORD = new double[]{0.0, 0.0, 0.0, 3.0};
+        input.Y_COORD = new double[]{1.0, 4.0, 1.0, 1.0};
+        input.N_PTS = 3;
+        input.DIST = 2.9;
+
+        assertTrue(licAnalyzer.lic6(input));
+    }
+
+    @Test
+    public void lic6CoincideInsideDist() {
+        input.NUMPOINTS = 4;
+        input.X_COORD = new double[]{0.0, 0.0, 0.0, 3.0};
+        input.Y_COORD = new double[]{1.0, 4.0, 1.0, 1.0};
+        input.N_PTS = 3;
+        input.DIST = 3.1;
+
+        assertFalse(licAnalyzer.lic6(input));
+    }
+
+    @Test
+    public void lic6CoincidentNumpointsEqualsNptsInside() {
+        input.NUMPOINTS = 4;
+        input.X_COORD = new double[]{0.0, 0.0, 0.0, 0.0};
+        input.Y_COORD = new double[]{1.0, 0.5, 0.9, 1.0};
+        input.N_PTS = 4;
+        input.DIST = 0.6;
+
+        assertFalse(licAnalyzer.lic6(input));
+    }
+
+    @Test
+    public void lic6CoincidentNumpointsEqualsNptsOutside() {
+        input.NUMPOINTS = 4;
+        input.X_COORD = new double[]{0.0, 0.0, 0.0, 0.0};
+        input.Y_COORD = new double[]{1.0, 0.5, 2.0, 1.0};
+        input.N_PTS = 4;
+        input.DIST = 0.9;
+
+        assertTrue(licAnalyzer.lic6(input));
+    }
+
+    @Test
+    public void lic6NumpointsEqualsNptsInside() {
+        input.NUMPOINTS = 4;
+        input.X_COORD = new double[]{0.0, 0.0, 0.0, 8.0};
+        input.Y_COORD = new double[]{1.0, 0.5, 0.9, 1.0};
+        input.N_PTS = 4;
+        input.DIST = 0.6;
+
+        assertFalse(licAnalyzer.lic6(input));
+    }
+
+    @Test
+    public void lic6NumpointsEqualsNptsOutside() {
+        input.NUMPOINTS = 4;
+        input.X_COORD = new double[]{0.0, 0.0, 0.0, 8.0};
+        input.Y_COORD = new double[]{1.0, 0.5, 2.0, 1.0};
+        input.N_PTS = 4;
+        input.DIST = 0.9;
+
+        assertTrue(licAnalyzer.lic6(input));
+    }
+    
+
+    @Test
+    public void lic6LessThan3Points() {
+        input.NUMPOINTS = 2;
+        input.X_COORD = new double[]{0.0, 1.0};
+        input.Y_COORD = new double[]{1.0, 0.0};
+        input.N_PTS = 2;
+        input.DIST = 1.3;
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic6(input));
+    }
+
+    @Test
+    public void lic6DistLessThan0() {
+        input.NUMPOINTS = 3;
+        input.X_COORD = new double[]{0.0, 1.0};
+        input.Y_COORD = new double[]{1.0, 0.0};
+        input.N_PTS = 2;
+        input.DIST = -1;
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic6(input));
+    }
+
+    @Test
+    public void lic6NptsLessThan3() {
+        input.NUMPOINTS = 3;
+        input.X_COORD = new double[]{0.0, 1.0, 1.0};
+        input.Y_COORD = new double[]{1.0, 0.0, 1.0};
+        input.N_PTS = 2;
+        input.DIST = 1;
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic6(input));
+    }
+
+    @Test
+    public void lic6NpointsLessThanNpts() {
+        input.NUMPOINTS = 3;
+        input.X_COORD = new double[]{0.0, 1.0, 1.0};
+        input.Y_COORD = new double[]{1.0, 0.0, 1.0};
+        input.N_PTS = 4;
+        input.DIST = 1;
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic6(input));
     }
 
 ///////////////////////////// Lic 7 /////////////////////////////
@@ -548,7 +698,43 @@ public class LicAnalyzerTest {
 ///////////////////////////// Lic 12 /////////////////////////////
 
     @Test
-    public void lic12Test() {
+    public void lic12LENGTH1LessThanDistAndLENGTH2GreaterThanDist() {
+        input.NUMPOINTS = 3;
+        input.X_COORD = new double[]{0.0, 0.0, 1.0};
+        input.Y_COORD = new double[]{0.0, 0.0, 1.0};
+        input.K_PTS= 1;
+        input.LENGTH1 = 1;
+        input.LENGTH2 = 3;
+
+        assertTrue(licAnalyzer.lic12(input));
+    }
+    
+    @Test
+    public void lic12LENGTH1LessThanDistAndLENGTH2NotGreaterThanDist() {
+        input.NUMPOINTS = 3;
+        input.X_COORD = new double[]{0.0, 3.0, 1.0};
+        input.Y_COORD = new double[]{0.0, 1.0, 1.0};
+        input.K_PTS= 1;
+        input.LENGTH1 = 1;
+
+        assertFalse(licAnalyzer.lic12(input));
+    }
+
+    @Test
+    public void lic12InvalidLENGTH2() {
+        input.NUMPOINTS = 3;
+        input.X_COORD = new double[]{0.0, 3.0, 1.0};
+        input.Y_COORD = new double[]{0.0, 1.0, 1.0};
+        input.K_PTS= 1;
+        input.LENGTH1 = 1;
+        input.LENGTH2 = -1;
+
+        assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic12(input));
+    }
+
+
+    @Test
+    public void lic13Test() {
         assertTrue(true);
     }
 

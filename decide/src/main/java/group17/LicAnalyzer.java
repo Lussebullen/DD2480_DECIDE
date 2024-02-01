@@ -42,7 +42,7 @@ public class LicAnalyzer {
     }
     
     /** 
-     * This function calculates Launch Interceptor Condition (LIC) number 2
+     * This function calculates Launch Interceptor Condition (LIC) number 1
      * 
      * @param input
      * @return true if at least one set of three consecutive data points that cannot all be contained within or on a circle of radius RADIUS1 exists.
@@ -84,8 +84,12 @@ public class LicAnalyzer {
      */
     public boolean lic2(InputHandler input) {
 
-        if (input.NUMPOINTS < 3 || input.NUMPOINTS > 100) {
-            throw new IllegalArgumentException("NUMPOINTS must be between 2 (inclusive) and 100 (inclusive)");
+        if (input.NUMPOINTS < 2 || input.NUMPOINTS > 100) {
+            throw new IllegalArgumentException("NUMPOINTS must be inside range [2, 100]");
+        }
+
+        if (input.NUMPOINTS == 2) {
+            return false;
         }
 
         if (input.EPSILON < 0 || input.EPSILON >= Math.PI) {
@@ -250,7 +254,37 @@ public class LicAnalyzer {
         return false;
     }
 
+    
+    
+    /** 
+     * This function calculates Launch Interceptor Condition (LIC) number 6.
+     * @param input
+     * @return boolean
+     */
     public boolean lic6(InputHandler input) {
+        int n_pts = input.N_PTS;
+        double dist = input.DIST;
+        int n = input.NUMPOINTS;
+        double[] X = input.X_COORD;
+        double[] Y = input.Y_COORD;
+
+        if (dist < 0) {
+            throw new IllegalArgumentException("Exception thrown from: LIC 6. DIST must be greater than or equal to 0.");
+        } else if (n_pts < 3) {
+            throw new IllegalArgumentException("Exception thrown from: LIC 6. N_PTS must be greater than or equal to 3.");
+        } else if (n < n_pts) {
+            throw new IllegalArgumentException("Exception thrown from: LIC 6. NUMPOINTS must be greater than or equal to N_PTS.");
+        }
+
+        for (int i = 0; i <= n - n_pts; i++) {
+            for (int j = i + 1; j < i + n_pts - 1; j++) {
+                // Strictly greater to satisfy condition.
+                if (geoUtils.distanceFromPointToLine(X[i],Y[i],X[i+n_pts-1],Y[i+n_pts-1],X[j],Y[j]) > dist) {
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
 
@@ -262,8 +296,12 @@ public class LicAnalyzer {
      */
     public boolean lic7(InputHandler input) {
 
-        if (input.NUMPOINTS < 3 || input.NUMPOINTS > 100) {
-            throw new IllegalArgumentException("NUMPOINTS must be between 3 (inclusive) and 100 (inclusive)");
+        if (input.NUMPOINTS < 2 || input.NUMPOINTS > 100) {
+            throw new IllegalArgumentException("NUMPOINTS must be inside range [2, 100]");
+        }
+
+        if (input.NUMPOINTS == 2) {
+            return false;
         }
 
         if (input.K_PTS < 1 || input.K_PTS > input.NUMPOINTS-2) {
@@ -357,8 +395,51 @@ public class LicAnalyzer {
         return false;
     }
 
+    /**
+     * This function calculates Launch Interceptor Condition (LIC) number 12
+     *
+     * @param input.NUMPOINTS,LENGTH1,LENGTH2,X_COORD,Y_COORD,K_PTS
+     * @return true if there are at least two sets of two data points separated by input.K_PTS data points which distance is greater than LENGTH1 and less than LENGTH2 respectively
+     */
     public boolean lic12(InputHandler input) {
-        return false;
+
+        if (input.NUMPOINTS < 2 || input.NUMPOINTS > 100) {
+            throw new IllegalArgumentException("NUMPOINTS must be inside the range [2, 100]");
+        }
+
+        if (input.NUMPOINTS == 2) {
+            return false;
+        }
+
+        if (input.K_PTS < 1 || input.K_PTS > input.NUMPOINTS-2) {
+            throw new IllegalArgumentException("K_PTS must be between 1 (inclusive) and NUMPOINTS-2 (inclusive)");
+        }
+
+        if (input.LENGTH1 < 0) {
+            throw new IllegalArgumentException("LENGTH1 must be a positive number");
+        }
+
+        if (input.LENGTH2 < 0) {
+            throw new IllegalArgumentException("LENGTH2 must be a positive number");
+        }
+
+        boolean distGreaterThanLENGTH1 = false;
+        boolean distLessThanLENGTH2 = false;
+
+        for (int i = 0; i < input.NUMPOINTS - input.K_PTS - 1; i++) {
+            double x1 = input.X_COORD[i], y1 = input.Y_COORD[i];
+            double x2 = input.X_COORD[i + input.K_PTS + 1], y2 = input.Y_COORD[i + input.K_PTS + 1];
+
+            if (geoUtils.dist(x1, y1, x2, y2) > input.LENGTH1) {
+                distGreaterThanLENGTH1 = true;
+            }
+
+            if (geoUtils.dist(x1 , y1, x2, y2) < input.LENGTH2) {
+                distLessThanLENGTH2 = true;
+            }
+        }
+
+        return distGreaterThanLENGTH1 && distLessThanLENGTH2;
     }
 
     /*
