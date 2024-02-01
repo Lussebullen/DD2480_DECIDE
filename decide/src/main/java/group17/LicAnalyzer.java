@@ -84,8 +84,12 @@ public class LicAnalyzer {
      */
     public boolean lic2(InputHandler input) {
 
-        if (input.NUMPOINTS < 3 || input.NUMPOINTS > 100) {
-            throw new IllegalArgumentException("NUMPOINTS must be between 2 (inclusive) and 100 (inclusive)");
+        if (input.NUMPOINTS < 2 || input.NUMPOINTS > 100) {
+            throw new IllegalArgumentException("NUMPOINTS must be inside range [2, 100]");
+        }
+
+        if (input.NUMPOINTS == 2) {
+            return false;
         }
 
         if (input.EPSILON < 0 || input.EPSILON >= Math.PI) {
@@ -262,8 +266,12 @@ public class LicAnalyzer {
      */
     public boolean lic7(InputHandler input) {
 
-        if (input.NUMPOINTS < 3 || input.NUMPOINTS > 100) {
-            throw new IllegalArgumentException("NUMPOINTS must be between 3 (inclusive) and 100 (inclusive)");
+        if (input.NUMPOINTS < 2 || input.NUMPOINTS > 100) {
+            throw new IllegalArgumentException("NUMPOINTS must be inside range [2, 100]");
+        }
+
+        if (input.NUMPOINTS == 2) {
+            return false;
         }
 
         if (input.K_PTS < 1 || input.K_PTS > input.NUMPOINTS-2) {
