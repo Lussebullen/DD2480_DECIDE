@@ -481,7 +481,7 @@ public class LicAnalyzerTest {
         input.N_PTS = 2;
         input.DIST = 1.3;
 
-        assertFalse(licAnalyzer.lic6(input));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic6(input));
     }
 
     @Test

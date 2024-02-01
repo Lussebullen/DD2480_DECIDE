@@ -182,9 +182,7 @@ public class LicAnalyzer {
         double[] X = input.X_COORD;
         double[] Y = input.Y_COORD;
 
-        if (n < 3) {
-            return false; //?? should it be handled like this?
-        } else if (dist < 0) {
+        if (dist < 0) {
             throw new IllegalArgumentException("Exception thrown from: LIC 6. DIST must be greater than or equal to 0.");
         } else if (n_pts < 3) {
             throw new IllegalArgumentException("Exception thrown from: LIC 6. N_PTS must be greater than or equal to 3.");
