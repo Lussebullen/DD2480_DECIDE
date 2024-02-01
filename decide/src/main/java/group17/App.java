@@ -62,9 +62,7 @@ public class App
                 continue;
             }
             for (int j = 0; j < signals; ++j) {
-               if (PUM[i][j] == true || i == j) {
-                   continue;
-               } else if (PUM[i][j] == false) {
+               if (PUM[i][j] == false || i != j) {
                    return FUV;
                }
             }
