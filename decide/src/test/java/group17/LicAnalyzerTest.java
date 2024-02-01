@@ -6,13 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
-import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
-import static org.junit.jupiter.api.Assumptions.assumeFalse;
+
 
 import java.lang.Exception;
 
@@ -1010,12 +1005,6 @@ public void lic8TestB_PTSTooSmall() {
         assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic12(input));
     }
 
-
-    @Test
-    public void lic13Test() {
-        assertTrue(true);
-    }
-
 ///////////////////////////// Lic 13 /////////////////////////////
 
     @Test
@@ -1133,9 +1122,39 @@ public void lic8TestB_PTSTooSmall() {
 
 ///////////////////////////// Lic 14 /////////////////////////////
 
-    @Test
-    public void lic14Test() {
-        assertTrue(true);
-    }
+@Test
+public void lic14BothTriangleCondsAreMet() {
+    input.NUMPOINTS = 7;
+    input.E_PTS = 1;
+    input.F_PTS = 2;
+    input.AREA1 = 7;
+    input.AREA2 = 3;
+    input.X_COORD = new double[]{0.0, 0.0, 5.0, 2.0, 99.99, 5.0, 2.0};
+    input.Y_COORD = new double[]{0.0, 0.0, 0.0, 0.0, 99.99, 4.0, 2.0};
+    assertTrue(licAnalyzer.lic14(input));
+}
+
+@Test
+public void lic14TooFewPoints() {
+    input.NUMPOINTS = 4;
+    input.E_PTS = 1;
+    input.F_PTS = 2;
+    input.AREA1 = 7;
+    input.AREA2 = 0.5;
+    input.X_COORD = new double[]{0.0, 99.99, 5.0, -99.99};
+    input.Y_COORD = new double[]{0.0, 0.0,   0.0,  0.0};
+    assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic14(input));
+}
+@Test
+public void lic14Area2IsNegative() {
+    input.NUMPOINTS = 7;
+    input.E_PTS = 1;
+    input.F_PTS = 2;
+    input.AREA1 = 7;
+    input.AREA2 = -3;
+    input.X_COORD = new double[]{0.0, 0.0, 5.0, 2.0, 99.99, 5.0, 2.0};
+    input.Y_COORD = new double[]{0.0, 0.0, 0.0, 0.0, 99.99, 4.0, 2.0};
+    assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic14(input));
+}
 
 }

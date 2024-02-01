@@ -1,7 +1,5 @@
 package group17;
 import java.lang.Math;
-
-import java.util.List;
 import java.util.ArrayList;
 
 public class LicAnalyzer {
@@ -641,12 +639,73 @@ public class LicAnalyzer {
         return !wholeSetWithinRadius1 && wholeSetWithinRadius2;
     }
 
-    public boolean lic14(InputHandler input) {
+    /**
+     *  Checks if a set of three points is separated by E_PTS and F_PTS, and if formed triangle meets condition.
+     *  cond1 is x1,x2,x3,y1,y2,y3 provides area strictly greater than AREA1
+     *  cond2 is x1,x2,x3,y1,y2,y3 provides area stricly less than AREA2
+     *  @returns true, false, or @throws IllegalArgumentException
+     *  @param input.NUMPOINTS,E_PTS,F_PTS,AREA1,AREA2,X_COORD,Y_COORD
+    */
+    public boolean lic14(InputHandler input) throws IllegalArgumentException {
+        //Initialize
+        double x1,x2,x3,y1,y2,y3 = 0;
+        double area1 = input.AREA1;
+        double area2 = input.AREA2;
+        int gapE = input.E_PTS;
+        int gapF = input.F_PTS;
+        int numPts = input.NUMPOINTS;
+        double triangle1, triangle2 = 0;
+        
+        //Exception handling
+        if(numPts < 5 || numPts > 100)
+            throw new IllegalArgumentException("Exception thrown from: LIC 14. Reason: NUMPOINTS < 5 or NUMPOINTS > 100.");
+        else if(gapE < 1 || gapF < 1 )
+            throw new IllegalArgumentException("Exception thrown from: LIC 14. Reason: E_PTS < 1 or F_PTS < 1.");
+        else if(gapE + gapF > numPts - 3)
+            throw new IllegalArgumentException("Exception thrown from: LIC 14. Reason: E_PTS + F_PTS > NUMPOINTS - 3");
+        else if(area2 < 0)
+            throw new IllegalArgumentException("Exception thrown from: LIC 14. Reason: AREA2 < 0");
+        
+        //Check all data points
+        for(int i = 0; i < numPts - (gapE + gapF + 2); i++) {
+            x1 = input.X_COORD[i];
+            x2 = input.X_COORD[i+gapE+1];
+            x3 = input.X_COORD[i+gapE+1+gapF+1];
+
+            y1 = input.Y_COORD[i];
+            y2 = input.Y_COORD[i+gapE+1];
+            y3 = input.Y_COORD[i+gapE+1+gapF+1];
+
+            //Found points satifies cond1 -> find second triangle
+            triangle1 = geoUtils.calcTriangleArea(x1, y1, x2, y2, x3, y3);
+            if(triangle1 > area1)
+            {
+                //The same points satisfy cond2
+                if(triangle1 < area2)
+                    return true;
+                //Iterate all points to find points that satify cond2
+                else {
+                    for(int j = 0; j < numPts - (gapE + gapF + 2); j++)
+                    {
+                        x1 = input.X_COORD[j];
+                        x2 = input.X_COORD[j+gapE+1];
+                        x3 = input.X_COORD[j+gapE+1+gapF+1];
+
+                        y1 = input.Y_COORD[j];
+                        y2 = input.Y_COORD[j+gapE+1];
+                        y3 = input.Y_COORD[j+gapE+1+gapF+1];
+                        
+                        triangle2 = geoUtils.calcTriangleArea(x1, y1, x2, y2, x3, y3);
+                        if(triangle2 < area2)
+                            return true;
+                    }
+                }
+                //cond2 cannot be satisfied.
+                return false;
+            }
+        }
         return false;
     }
 
-    public boolean lic15(InputHandler input) {
-        return false;
-    }
 
 }
