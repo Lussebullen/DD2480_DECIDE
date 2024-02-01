@@ -4,8 +4,7 @@ import group17.InputHandler.CONNECTORS;
 
 public class App 
 {
-    private boolean[] evaluateLics(final InputHandler input)
-    {
+    private boolean[] evaluateLics(final InputHandler input) {
         LicAnalyzer licAnalyzer = new LicAnalyzer();
         final boolean[] CMV = {
             licAnalyzer.lic0(input),
@@ -24,7 +23,6 @@ public class App
             licAnalyzer.lic13(input),
             licAnalyzer.lic14(input)
         };
-
         return CMV;
     }
 
@@ -64,9 +62,7 @@ public class App
                 continue;
             }
             for (int j = 0; j < signals; ++j) {
-               if (PUM[i][j] == true || i == j) {
-                   continue;
-               } else if (PUM[i][j] == false) {
+               if (PUM[i][j] == false || i != j) {
                    return FUV;
                }
             }
@@ -92,11 +88,16 @@ public class App
         System.out.println("YES");
     }
 
-    public static void main( String[] args )
-    {
-        InputHandler input = new InputHandler("");
-        App missileSystem = new App();
-        missileSystem.decide(input);
+    public static void main( String[] args ) {
+        try {
+            InputHandler input = new InputHandler("");
+            App missileSystem = new App();
+            missileSystem.decide(input);
+        }
+        catch(Exception e) {
+            System.out.println(e.getMessage());  
+        }
+        
         System.out.println( "Hello World!" );
     }
 }
