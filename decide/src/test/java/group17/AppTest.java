@@ -79,6 +79,13 @@ public class AppTest
         input.RADIUS2   = 10.0;
         input.AREA2     = 10.0;
         input.DIST      = 0.05;
+
+        // Circumvent false LICs when generating FUV by PUV element for LIC
+        // to false, i.e. not relevant for launch.
+        input.PUV[4]  = false; //data generates false in lic 4
+        input.PUV[11] = false;// Missing
+        input.PUV[14] = false;// Missing
+
     }
 
     @Test
