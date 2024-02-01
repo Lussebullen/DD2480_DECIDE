@@ -88,7 +88,7 @@ public class App
 
     public static void main( String[] args ) {
         try {
-            InputHandler input = new InputHandler("");
+            InputHandler input = new InputHandler("sampleData.json");
             App missileSystem = new App();
             missileSystem.decide(input);
         }
