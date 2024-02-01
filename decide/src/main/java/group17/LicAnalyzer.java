@@ -679,8 +679,5 @@ public class LicAnalyzer {
         return false;
     }
 
-    public boolean lic15(InputHandler input) {
-        return false;
-    }
 
 }
