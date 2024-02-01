@@ -537,15 +537,15 @@ public void lic8TestManyPoints() {
 @Test
 public void lic8Test2Points() {
     input.NUMPOINTS = 2;
-
-    assertFalse(licAnalyzer.lic8(input));
+    //Since A_PTS, B_PTS >= 1 and A_PTS + B_PTS <= NUMPOINTS - 3 this should throw invalid argument exception 
+    assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic8(input));
 }
 
 @Test
 public void lic8Test4Points() {
     input.NUMPOINTS = 4;
-
-    assertFalse(licAnalyzer.lic8(input));
+    //Since A_PTS, B_PTS >= 1 and A_PTS + B_PTS <= NUMPOINTS - 3 this should throw invalid argument exception 
+    assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic8(input));
 }
 
 @Test
