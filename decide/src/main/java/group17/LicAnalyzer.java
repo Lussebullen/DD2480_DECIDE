@@ -275,6 +275,12 @@ public class LicAnalyzer {
         return false;
     }
 
+    /**
+     * This function calculates Launch Interceptor Condition (LIC) number 12
+     *
+     * @param input.NUMPOINTS,LENGTH1,LENGTH2,X_COORD,Y_COORD,K_PTS
+     * @return true if there are at least two sets of two data points separated by input.K_PTS data points which distance is greater than LENGTH1 and less than LENGTH2 respectively
+     */
     public boolean lic12(InputHandler input) {
 
         if (input.NUMPOINTS < 2 || input.NUMPOINTS > 100) {
