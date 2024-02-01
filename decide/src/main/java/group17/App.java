@@ -79,12 +79,11 @@ public class App
         final boolean[][] PUM = calculatePUM(CMV, input.LCM);
         final boolean[]   FUV = calculateFUV(PUM, input.PUV);
 
-        for (boolean signal : FUV) {
-            if (signal == true) {
-                continue;
+        for (boolean enabledSignal : FUV) {
+            if (!enabledSignal) {
+                System.out.println("NO");
+                return;
             } 
-            System.out.println("NO");
-            return;
         }
         System.out.println("YES");
     }
