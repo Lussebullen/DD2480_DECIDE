@@ -1,4 +1,5 @@
 package group17;
+import java.lang.Math;
 
 public class LicAnalyzer {
 
@@ -36,8 +37,39 @@ public class LicAnalyzer {
         }
         return false;
     }
-
+    
+    /** 
+     * This function calculates Launch Interceptor Condition (LIC) number 2
+     * 
+     * @param input
+     * @return true if at least one set of three consecutive data points that cannot all be contained within or on a circle of radius RADIUS1 exists.
+     */
     public boolean lic1(InputHandler input) {
+        double threshold_radius = input.RADIUS1;
+        // Number of sets to check enclosing radius for.
+        int n = input.NUMPOINTS - 2;
+        double[] X = input.X_COORD;
+        double[] Y = input.Y_COORD;
+        
+        if (input.NUMPOINTS < 2 || input.NUMPOINTS > 100) {
+            throw new IllegalArgumentException("Exception thrown from: LIC 1. Reason: NUMPOINTS outside range [2, 100].");
+        }
+        if (threshold_radius < 0) {
+            throw new IllegalArgumentException("Exception thrown from: LIC 1. Reason: RADIUS1 cannot be strictly less than 0.");
+        }
+        if (input.NUMPOINTS == 2) {
+            // No set of 3 points exists, so criterion cannot be fulfilled.
+            return false;
+        }
+
+        for (int i = 0; i < n; i++) {
+            double radius = geoUtils.minimumEnclosingRadius(X[i],Y[i],X[i+1],Y[i+1],X[i+2],Y[i+2]);
+            if (radius > threshold_radius) {
+                // The three points cannot fit within threshold radius.
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -110,7 +142,29 @@ public class LicAnalyzer {
         return false;
     }
 
-    public boolean lic5(InputHandler input) {
+     /*
+     * Evaluates if a set of two consecutive points exists where latter point has a lower value on its x-coordinate,
+     * more specifically, if it exists points such that X[i] < X[j], where j = i - 1 and X is a container storing
+     * every point's x-coordinate.
+     *
+     * @param  input  object whose members hold data for the problem; relevant 
+                      fields for lic5 are: NUMPOINTS, X_COORD, Y_COORD
+     * @return        true if set exists, false otherwise
+     */
+    public boolean lic5(InputHandler input) throws IllegalArgumentException {
+        if (input.NUMPOINTS < 2 || input.NUMPOINTS > 100) {
+            throw new IllegalArgumentException("Exception thrown from: LIC 5. Reason: NUMPOINTS outside range [2, 100].");
+        } else if (input.X_COORD == null || input.Y_COORD == null) {
+            throw new IllegalArgumentException("Exception thrown from: LIC 5. X_COORD or Y_COORD array points to null!");
+        }
+        for (int i = 1; i < input.NUMPOINTS; ++i) {
+            double xCoordinate2 = input.X_COORD[i];
+            double xCoordinate1 = input.X_COORD[i - 1];
+
+            if (xCoordinate2 < xCoordinate1) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -256,12 +310,8 @@ public class LicAnalyzer {
             throw new IllegalArgumentException("Exception thrown from: LIC 10. Reason: NUMPOINTS < E_PTS + F_PTS + 3.");
         }
 
-        boolean pointsFound = helperLic10ThreePointsSeperatedBy(input.E_PTS, input.F_PTS, input);
-        if (!pointsFound) {
-            // Points might exist but seperated in opposite order to call above
-            pointsFound = helperLic10ThreePointsSeperatedBy(input.F_PTS, input.E_PTS, input);
-        }
-        return pointsFound;
+        return helperLic10ThreePointsSeperatedBy(input.F_PTS, input.E_PTS, input)
+            || helperLic10ThreePointsSeperatedBy(input.E_PTS, input.F_PTS, input);
 
     }
 
