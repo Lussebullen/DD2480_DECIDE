@@ -323,7 +323,48 @@ public class LicAnalyzer {
         return false;
     }
 
+    /**
+     * This function calculates Launch Interceptor Condition (LIC) number 8
+     * Utilizes helper methods in GeometryUtils.java to calculate the smallest possible radius between 3 points.
+     * The first two points are separated by A_PTS.
+     * The last two points are separated by B_PTS.
+     *
+     * @param input.NUMPOINTS,RADIUS1,X_COORD,Y_COORD,A_PTS,B_PTS
+     * @return true if three points, separated by A_PTS and B_PTS cannot be contained on or within a circle of radius RADIUS1
+     */
     public boolean lic8(InputHandler input) {
+
+        double[] X = input.X_COORD;
+        double[] Y = input.Y_COORD;
+        int A = input.A_PTS;
+        int B = input.B_PTS;
+        
+        if (input.NUMPOINTS < 2 || input.NUMPOINTS > 100) {
+            throw new IllegalArgumentException("NUMPOINTS must be between 2 and 100.");
+        }
+        if (input.RADIUS1 < 0) {
+            throw new IllegalArgumentException("RADIUS1 cannot be lower than 0.");
+        }
+        if (A < 1) {
+            throw new IllegalArgumentException("A_PTS must be greater than or equal to 1.");
+        }
+        if (B < 1) {
+            throw new IllegalArgumentException("A_PTS must be greater than or equal to 1.");
+        }
+        if (A + B > (input.NUMPOINTS - 3)) {
+            throw new IllegalArgumentException("A_PTS + B_PTS must be less than or equal to NUMPOINTS - 3.");
+        }
+        if (input.NUMPOINTS < 5) {
+            return false;
+        }
+
+        for (int i = 0; i < input.NUMPOINTS - A - B - 2; i++) {
+            double radius = geoUtils.minimumEnclosingRadius(X[i],Y[i],X[i+1+A],Y[i+1+A],X[i+2+A+B],Y[i+2+A+B]);
+            if (radius > input.RADIUS1) {
+                return true;
+            }
+        }
+
         return false;
     }
 

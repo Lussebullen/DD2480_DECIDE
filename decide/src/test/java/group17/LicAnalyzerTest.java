@@ -629,10 +629,148 @@ public class LicAnalyzerTest {
 
 ///////////////////////////// Lic 8 /////////////////////////////
 
-    @Test
-    public void lic8Test() {
-        assertTrue(true);
-    }
+@Test
+public void lic8TestUncontained() {
+    input.NUMPOINTS = 5;
+    input.A_PTS = 1;
+    input.B_PTS = 1;
+    input.X_COORD = new double[]{-2.0, 13.37, 0.0, 13.37, 2.0};
+    input.Y_COORD = new double[]{0.0, 13.37, 0.0, 13.37, 0.0};
+    input.RADIUS1 = 1.5;
+
+    assertTrue(licAnalyzer.lic8(input));
+}
+
+@Test
+public void lic8TestUncontainedOffset1() {
+    input.NUMPOINTS = 6;
+    input.A_PTS = 1;
+    input.B_PTS = 1;
+    input.X_COORD = new double[]{13.37, -2.0, 13.37, 0.0, 13.37, 2.0};
+    input.Y_COORD = new double[]{13.37, 0.0, 13.37, 0.0, 13.37, 0.0};
+    input.RADIUS1 = 1.5;
+
+    assertTrue(licAnalyzer.lic8(input));
+}
+
+public void lic8TestContained() {
+    input.NUMPOINTS = 6;
+    input.A_PTS = 1;
+    input.B_PTS = 1;
+    input.X_COORD = new double[]{13.37, -2.0, 13.37, 0.0, 13.37, 2.0};
+    input.Y_COORD = new double[]{13.37, 0.0, 13.37, 0.0, 13.37, 0.0};
+    input.RADIUS1 = 3;
+
+    assertFalse(licAnalyzer.lic8(input));
+}
+
+public void lic8TestContainedOffset1() {
+    input.NUMPOINTS = 6;
+    input.A_PTS = 1;
+    input.B_PTS = 1;
+    input.X_COORD = new double[]{13.37, -2.0, 13.37, 0.0, 13.37, 2.0};
+    input.Y_COORD = new double[]{13.37, 0.0, 13.37, 0.0, 13.37, 0.0};
+    input.RADIUS1 = 3;
+
+    assertFalse(licAnalyzer.lic8(input));
+}
+
+@Test
+public void lic8TestContainedBoundary() {
+    input.NUMPOINTS = 5;
+    input.A_PTS = 1;
+    input.B_PTS = 1;
+    input.X_COORD = new double[]{-2.0, 13.37, 0.0, 13.37, 2.0};
+    input.Y_COORD = new double[]{0.0, 13.37, 2.0, 13.37, 0.0};
+    input.RADIUS1 = 2;
+
+    assertFalse(licAnalyzer.lic8(input));
+}
+
+@Test
+public void lic8TestContainedBoundaryOffset1() {
+    input.NUMPOINTS = 6;
+    input.A_PTS = 1;
+    input.B_PTS = 1;
+    input.X_COORD = new double[]{13.37, -2.0, 13.37, 0.0, 13.37, 2.0};
+    input.Y_COORD = new double[]{13.37, 0.0, 13.37, 2.0, 13.37, 0.0};
+    input.RADIUS1 = 2;
+
+    assertFalse(licAnalyzer.lic8(input));
+}
+
+@Test
+public void lic8TestContainedZeroRadius() {
+    input.NUMPOINTS = 5;
+    input.A_PTS = 1;
+    input.B_PTS = 1;
+    input.X_COORD = new double[]{1.0, 13.37, 1.0, 13.37, 1.0};
+    input.Y_COORD = new double[]{1.0, 13.37, 1.0, 13.37, 1.0};
+    input.RADIUS1 = 0;
+
+    assertFalse(licAnalyzer.lic8(input));
+}
+
+@Test
+public void lic8TestUncontainedZeroRadius() {
+    input.NUMPOINTS = 5;
+    input.A_PTS = 1;
+    input.B_PTS = 1;
+    input.X_COORD = new double[]{1.0, 13.37, 0.0, 13.37, 1.0};
+    input.Y_COORD = new double[]{1.0, 13.37, 1.0, 13.37, 1.0};
+    input.RADIUS1 = 0;
+
+    assertTrue(licAnalyzer.lic8(input));
+}
+
+@Test
+public void lic8TestTooFewPoints() {
+    input.NUMPOINTS = 1;
+
+    assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic8(input));
+}
+
+@Test
+public void lic8TestManyPoints() {
+    input.NUMPOINTS = 101;
+
+    assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic8(input));
+}
+
+@Test
+public void lic8Test2Points() {
+    input.NUMPOINTS = 2;
+    //Since A_PTS, B_PTS >= 1 and A_PTS + B_PTS <= NUMPOINTS - 3 this should throw invalid argument exception 
+    assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic8(input));
+}
+
+@Test
+public void lic8Test4Points() {
+    input.NUMPOINTS = 4;
+    //Since A_PTS, B_PTS >= 1 and A_PTS + B_PTS <= NUMPOINTS - 3 this should throw invalid argument exception 
+    assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic8(input));
+}
+
+@Test
+public void lic8TestNegativeRadius() {
+    input.RADIUS1 = -1;
+
+    assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic8(input));
+}
+
+@Test
+public void lic8TestA_PTSTooSmall() {
+    input.A_PTS = 0;
+
+    assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic8(input));
+}
+
+@Test
+public void lic8TestB_PTSTooSmall() {
+    input.B_PTS = 0;
+
+    assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic8(input));
+}
 
 ///////////////////////////// Lic 9 /////////////////////////////
 
