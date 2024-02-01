@@ -442,8 +442,90 @@ public class LicAnalyzer {
         return distGreaterThanLENGTH1 && distLessThanLENGTH2;
     }
 
-    public boolean lic13(InputHandler input) {
+    /*
+     * Evaluate if circle can hold set of three points seperated by gap1 and gap2 
+     * points.
+     *
+     * @param gap1     Number of intervening points between point 1 and 2.
+     * @param gap2     Number of intervening points between point 2 and 3.
+     * @param radius   Radius of circle
+     * @param input    Class holding relevant data.
+     *
+     * @return         True if set exists, false otherwise.
+     */
+    private boolean CircleContainsSetOfThreePoints(int gap1, int gap2, double radius, 
+                                                   InputHandler input)
+    {
+        for (int i = gap1 + gap2 + 2; i < input.NUMPOINTS; ++i) {
+
+            int vertex3 = i;
+            int vertex2 = i - gap1 - 1;
+            int vertex1 = i - gap1 - gap2 - 2;
+
+            double xCoordinate1 = input.X_COORD[vertex1];
+            double yCoordinate1 = input.Y_COORD[vertex1];
+
+            double xCoordinate2 = input.X_COORD[vertex2];
+            double yCoordinate2 = input.Y_COORD[vertex2];
+
+            double xCoordinate3 = input.X_COORD[vertex3];
+            double yCoordinate3 = input.Y_COORD[vertex3];
+
+            boolean point1Found = geoUtils.pointInsideCircle(xCoordinate1, yCoordinate1, radius);
+
+            boolean point2Found = geoUtils.pointInsideCircle(xCoordinate2, yCoordinate2, radius);
+
+            boolean point3Found = geoUtils.pointInsideCircle(xCoordinate3, yCoordinate3, radius);
+
+            if (point1Found && point2Found && point3Found) {
+                return true;
+            }
+
+            // Only middle point is affected by gap order, check reverse if worthwhile.
+            // I.e. {point1 ----- points2 - points3} vs {point1 - points2 ----- points3}
+            if (!point2Found && point1Found && point3Found) {
+                vertex2 = i - gap2 - 1;
+
+                xCoordinate2 = input.X_COORD[vertex2];
+                yCoordinate2 = input.Y_COORD[vertex2];
+
+                point2Found = geoUtils.pointInsideCircle(xCoordinate2, yCoordinate2, radius);
+
+                if (point2Found) {
+                    return true;
+                }
+            }
+
+
+        }
         return false;
+    }
+
+    /*
+     * Evaluates existence of a set of three points, where point 1 and 2 are 
+     * seperated by either A_PTS or B_PTS and point 2 and 3 seperated by the other, that can 
+     * be contained in a circle with radius RADIUS2 but not inside a circle with RADIUS1. 
+     *
+     * @param  input  object whose members hold data for the problem.
+     *                Lic13 uses: NUMPOINTS, A_PTS, B_PTS, RADIUS1, RADIUS2, X_COORD, Y_COORD
+     *
+     * @return        true if both requirements are met, false otherwise
+     */
+    public boolean lic13(InputHandler input) {
+        if (input.RADIUS2 < 0.0) {
+            throw new IllegalArgumentException("Exception thrown from: LIC 13. Reason: RADIUS2 must be 0 or greater.");
+        }
+        if (input.NUMPOINTS > 1 && input.NUMPOINTS < 5) {
+            return false;
+        }
+
+        boolean wholeSetWithinRadius1 = CircleContainsSetOfThreePoints(input.A_PTS, input.B_PTS, 
+                                                                       input.RADIUS1, input);
+
+        boolean wholeSetWithinRadius2 = CircleContainsSetOfThreePoints(input.A_PTS, input.B_PTS, 
+                                                                       input.RADIUS2, input);
+
+        return !wholeSetWithinRadius1 && wholeSetWithinRadius2;
     }
 
     public boolean lic14(InputHandler input) {

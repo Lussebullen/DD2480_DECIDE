@@ -67,6 +67,29 @@ public class GeometryUtils {
         return triangleArea;
     }
 
+    /*
+    * Returns true if a point lies on circle with specified radius. Uses circle 
+    * equation relative to origin. "Lies on" means inside circle or on its 
+    * boundry formed by its radius.
+    * 
+    * @param x             Point's x-coordinate
+    * @param y             Point's y-coordinate
+    * @param circleRadius  Radius for circle of interest
+    *
+    * @return              True if circle contains point, false otherwise.
+    */
+    public boolean pointInsideCircle(double x, double y, double circleRadius) {
+        final double epsilon             = 1e-9;
+        final double squaredRadiusPoint  = Math.pow(x - 0.0, 2) + Math.pow(y - 0.0, 2);
+        final double squaredRadiusCircle = Math.pow(circleRadius, 2);
+                                                                                  
+        if (Math.abs(squaredRadiusPoint - squaredRadiusCircle) < epsilon) {
+            return true;
+        } else {
+            return dist(x, y, 0, 0) < circleRadius;
+        }
+    }
+
     /** 
      * Calculates and returns the circumradius of the points (x1,y1), (x2,y2), (x3,y3).
      * @param x1 X coordinate of first point.

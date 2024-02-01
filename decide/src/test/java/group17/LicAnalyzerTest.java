@@ -708,9 +708,7 @@ public class LicAnalyzerTest {
 
         assertTrue(licAnalyzer.lic12(input));
     }
-
-///////////////////////////// Lic 13 /////////////////////////////
-
+    
     @Test
     public void lic12LENGTH1LessThanDistAndLENGTH2NotGreaterThanDist() {
         input.NUMPOINTS = 3;
@@ -738,6 +736,121 @@ public class LicAnalyzerTest {
     @Test
     public void lic13Test() {
         assertTrue(true);
+    }
+
+///////////////////////////// Lic 13 /////////////////////////////
+
+    @Test
+    public void lic13ThrowsIfRADIUS2IsLessThanZero() {
+        // Arrange
+        input.RADIUS2 = -1e-9;
+
+        // Act, Assert
+        assertThrows(IllegalArgumentException.class, () -> licAnalyzer.lic13(input));
+    }
+
+    @Test
+    public void lic13IsFalseIfNumpointsIsLessThanFiveButMoreThanOne() {
+        //Arrange
+        input.X_COORD   = new double[]{ 0.0, 0.0 };
+        input.Y_COORD   = new double[]{ 0.0, 0.0 };
+        input.NUMPOINTS = input.X_COORD.length;
+
+        //Act
+        boolean signal  = licAnalyzer.lic13(input);
+
+        //Assert
+        assertFalse(signal);
+    }
+    @Test
+    public void lic13ReturnsTrueWhenRADIUS1CanNotContainAllPointsButRadius2Can() {
+        //Arrange
+        input.RADIUS1   = 1.0;
+        input.RADIUS2   = 3.0;
+        input.A_PTS     = 1;
+        input.B_PTS     = 1;
+        input.X_COORD   = new double[]{ 0.5, 9.9, 1.7, 9.9, 1.9 };
+        input.Y_COORD   = new double[]{ 0.5, 9.9, 1.7, 9.9, 1.9 };
+        input.NUMPOINTS = input.X_COORD.length;
+
+        //Act
+        boolean signal  = licAnalyzer.lic13(input);
+
+        //Assert
+        assertTrue(signal);
+    }
+
+    @Test
+    public void lic13ReturnsTrueWhenSetLiesOnRadius2Exactly() {
+        //Arrange
+        input.RADIUS1   = 1.0;
+        input.RADIUS2   = 3.0;
+        input.A_PTS     = 1;
+        input.B_PTS     = 1;
+        input.X_COORD   = new double[]{ 3.0, 9.9, 0.0, 9.9, -3.0 };
+        input.Y_COORD   = new double[]{ 0.0, 9.9, 3.0, 9.9, 0.0 };
+        input.NUMPOINTS = input.X_COORD.length;
+
+        //Act
+        boolean signal  = licAnalyzer.lic13(input);
+
+        //Assert
+        assertTrue(signal);
+    }
+
+    @Test
+    public void lic13ReturnsFalseIfOnePointLiesJustOutsideRadius2() {
+        //Arrange
+        input.RADIUS1   = 1.0;
+        input.RADIUS2   = 3.0;
+        input.A_PTS     = 1;
+        input.B_PTS     = 1;
+        input.X_COORD   = new double[]{ 3.000, 9.9,  0.0,   9.9, -3.0001 };
+        input.Y_COORD   = new double[]{ 0.0,   9.9,  3.000, 9.9,  0.0 };
+        input.NUMPOINTS = input.X_COORD.length;
+
+        //Act
+        boolean signal  = licAnalyzer.lic13(input);
+
+        //Assert
+        assertFalse(signal);
+
+    }
+
+    @Test
+    public void Lic13ReturnsFalseIfAllPointsAreOutsideRadius2() {
+        //Arrange
+        input.RADIUS1   = 1.0;
+        input.RADIUS2   = 3.0;
+        input.A_PTS     = 1;
+        input.B_PTS     = 1;
+        input.X_COORD   = new double[]{ 5.0, 9.9, 5.25, 9.9, 5.5 };
+        input.Y_COORD   = new double[]{ 5.0, 9.9, 5.25, 9.9, 5.5 };
+        input.NUMPOINTS = input.X_COORD.length;
+
+        //Act
+        boolean signal  = licAnalyzer.lic13(input);
+
+        //Assert
+        assertFalse(signal);
+    }
+
+    @Test
+    public void Lic13ReturnsFalseIfAllPointsFitInsideRadius1() {
+        //Arrange
+        input.RADIUS1   = 1.0;
+        input.RADIUS2   = 3.0;
+        input.A_PTS     = 1;
+        input.B_PTS     = 1;
+        input.X_COORD   = new double[]{ 0.2, 9.9, 0.1, 9.9, 0.3 };
+        input.Y_COORD   = new double[]{ 0.2, 9.9, 0.1, 9.9, 0.3 };
+        input.NUMPOINTS = input.X_COORD.length;
+
+        //Act
+        boolean signal  = licAnalyzer.lic13(input);
+
+        //Assert
+        assertFalse(signal);
     }
 
 ///////////////////////////// Lic 14 /////////////////////////////
