@@ -73,8 +73,6 @@ public class App
     }
 
     public void decide(final InputHandler input) {
-        System.out.println( "Entered DECIDE" );
-
         final boolean[]   CMV = evaluateLics(input);
         final boolean[][] PUM = calculatePUM(CMV, input.LCM);
         final boolean[]   FUV = calculateFUV(PUM, input.PUV);
@@ -97,7 +95,5 @@ public class App
         catch(Exception e) {
             System.out.println(e.getMessage());  
         }
-        
-        System.out.println( "Hello World!" );
     }
 }
