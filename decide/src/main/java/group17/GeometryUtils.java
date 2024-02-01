@@ -111,4 +111,31 @@ public class GeometryUtils {
         }
         return radius;
     }
+
+    /** 
+     * Calculates and returns the distance from (x3,y3) to the line formed by (x1,y1), (x2,y2).
+     * @param x1 X coordinate of first point.
+     * @param y1 Y coordinate of first point.
+     * @param x2 X coordinate of second point.
+     * @param y2 Y coordinate of second point.
+     * @param x3 X coordinate of third point.
+     * @param y3 Y coordinate of third point.
+     * @return double
+     */
+    public double distanceFromPointToLine(double x1, double y1, double x2, double y2, double x3, double y3) {
+        // Calculate the numerator of the distance formula
+        double numerator = Math.abs((x2 - x1) * (y1 - y3) - (x1 - x3) * (y2 - y1));
+    
+        // Calculate the denominator of the distance formula
+        double denominator = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+
+        // If first and last coincident, distance to coincident point instead of line.
+        if (dist(x1,y1,x2,y2) <= 0) {
+            return dist(x1,y1,x3,y3);
+        }
+    
+        // Return the distance
+        return numerator / denominator;
+    }
+    
 }
