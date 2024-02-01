@@ -6,11 +6,11 @@ This repository includes a program that solves the "decide" problem, as stated i
 
 ## Requirements
 ---
-Java version 8+
+Java version: 8+
 
-JDK version 8+
+JDK version: 8+
 
-Maven version 3.8+
+Maven version: 3.8+
 
 ## Build instructions Windows
 ---
@@ -26,11 +26,15 @@ Install Maven via brew `brew install maven`
 
 ## Build instructions Linux
 ---
-Install `maven` using the package manager included in your linux distro, for example on Arch use `pacman -Syu`, on Fedora use `dnf install maven`, on Ubuntu use `apt-get`, on Debian use `apt` 
+Install `maven` using the package manager included in your linux distro, for example:
+* On Arch use `pacman -Syu maven`
+* On Fedora use `dnf install maven`
+* On Ubuntu use `apt-get maven`
+* On Debian use `apt` 
 
 ### To run in command line:
 ---
-navigate to the directory with the pom.xml file, for this project navigate to `DD2480_DECIDE\decide`
+Navigate to the directory with the pom.xml file, for this project navigate to `DD2480_DECIDE\decide`(on Windows) or `DD2480_DECIDE/decide` (on Unix-systems).
 
 Compile `mvn compile`
 
@@ -48,7 +52,7 @@ In the bottom left, at the maven tab, open the "Lifecycle" tab
 
 Hover any option of your choice, such as "test", and click the play button to run the corresponding option
 
-If vscode says the maven executable is missing, and requests it, insert the following `C:\ProgramData\chocolatey\lib\maven\apache-maven-3.9.6\bin\mvn` if you used the default install location of Maven from chocolatey
+If running Windows, if vscode says the maven executable is missing and requests it, insert the following `C:\ProgramData\chocolatey\lib\maven\apache-maven-3.9.6\bin\mvn` if you used the default install location of Maven from chocolatey
 
 ## Commit convention
 ---
@@ -72,7 +76,7 @@ I implemented LIC3 and LIC8, as well as accompanying unit tests. I performed a l
 Implemented LIC 4, 9 and 14. Implemented corresponding unit tests for the relevant LICs. Helped with pull request code reviews.
 
 - ##### [Omar Askar Vergara](https://github.com/Omar-AV)
-Implemented the decide function, LIC 0, 5, 10, 13 and corresponding unit tests for the LICS.
+Implemented the decide function in `App.java`, LIC 0, 5, 10, 13 and corresponding unit tests for the LICs. Performed pull request reviews.
 
 ## Remarkable Achievement
 ---
