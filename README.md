@@ -46,3 +46,6 @@ Prefixes: feat/, fix/, doc/, refactor/
  ## Statement of Contributions
  - ##### [Adam Siraj](https://github.com/asirago)
  I worked on the implementation and unit testing of LIC2, 7 and 12. I also added the GitHub Actions workflow to build the maven project and run the unit tests. I also implemented a discord bot and webhooked it to GitHub to receive notifications every time a pull request was created.
+
+ - ##### [Emil Sjölander](https://github.com/emilsjol)
+ I implemented LIC3 and LIC8, as well as accompanying unit tests. I performed a lot of code review of pull requests. During this task, I had an administrative role, scheduling upcoming meetings as well as performing administrative work on GitHub, such as labeling and creating issues. Additionally, I worked to maintain a good pace during meetings.
