@@ -62,9 +62,10 @@ public class App
                 continue;
             }
             for (int j = 0; j < signals; ++j) {
-               if (PUM[i][j] == false || i != j) {
-                   return FUV;
-               }
+                boolean enabledSignal = PUM[i][j];
+                if (!enabledSignal && i != j) {
+                    return FUV;
+                }
             }
             FUV[i] = true;
         }
