@@ -84,5 +84,12 @@ We are proud that we have set up a GitHub Actions workflow with automated unit t
 
 - Set up Repo with branch protection and Project with assignment requirements added
 
+## Essence analysis
+---
+The team has established a way-of-working and all team members support and use the agreed-upon setup. The direction and requirements of the work are clear, and the team is currently working well. However, though the communication channels are in place, the whole procedure is rather new to all team members, and thus “Working Well” feels a bit forced as we are still finding out tool-specific techniques. It's also hard to determine whether we are truly done with the ‘In Use’ requirement of “The use of the practices and tools selected are regularly inspected” as we are not fully comfortable with all tools but regularly inform each other of newly found techniques and such. 
+
+To reach the Working Well-state some more familiarity is needed with the tools, so that operations can run smoother. When the whole team achieves a comfortable level with our agreed upon framework (including familiarity with all tools), we would move on to “Working Well”.
+
+
 ## License
 ---
