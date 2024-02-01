@@ -42,4 +42,7 @@ If vscode says the maven executable is missing, and requests it, insert the foll
 All commits should be performed on the appropriate issue branch
 
 Prefixes: feat/, fix/, doc/, refactor/
- 
+ a
+ ## Statement of Contributions
+ - ##### [Adam Siraj](https://github.com/asirago)
+ I worked on the implementation and unit testing of LIC2, 7 and 12. I also added the GitHub Actions workflow to build the maven project and run the unit tests. I also implemented a discord bot and webhooked it to GitHub to receive notifications every time a pull request was created.
