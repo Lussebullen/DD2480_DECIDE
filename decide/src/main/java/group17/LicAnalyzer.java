@@ -225,14 +225,14 @@ public class LicAnalyzer {
         if (input.RADIUS1 < 0) {
             throw new IllegalArgumentException("RADIUS1 cannot be lower than 0.");
         }
-        if (input.NUMPOINTS < 5) {
-            return false;
-        }
         if (A < 1) {
             throw new IllegalArgumentException("A_PTS must be greater than or equal to 1.");
         }
         if (B < 1) {
             throw new IllegalArgumentException("A_PTS must be greater than or equal to 1.");
+        }
+        if (input.NUMPOINTS < 5) {
+            return false;
         }
 
         for (int i = 0; i < input.NUMPOINTS - A - B - 2; i++) {
